@@ -49,7 +49,6 @@ body::before {
   background-size: cover;
   border-radius: 16px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
-  /* MODIFICADO: Ajustado padding vertical para reduzir o espaçamento interno no topo/base */
   padding: 18px 24px;
   position: relative;
   overflow: hidden;
@@ -57,7 +56,6 @@ body::before {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* MODIFICADO: Usado 'space-evenly' para distribuir melhor o espaço entre os elementos */
   justify-content: space-evenly;
   text-align: center;
 }
@@ -68,8 +66,8 @@ body::before {
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    rgba(127, 70, 0, 0.75), /* Marrom mais escuro (7f4600 com 75% de opacidade) */
-    rgba(127, 70, 0, 0.55)  /* Marrom mais claro (7f4600 com 55% de opacidade) */
+    rgb(129, 90, 17), 
+    rgba(51, 31, 7, 0.55)  
   );
   border-radius: 16px;
   z-index: 0;
@@ -87,10 +85,8 @@ body::before {
 }
 
 #profile img {
-  /* MODIFICADO: Reduzido o tamanho da logo */
   width: 150px;
   height: 150px;
-  /* MODIFICADO: Reduzido a margem inferior */
   margin-bottom: 5px;
   object-fit: cover;
 }
@@ -102,7 +98,6 @@ body::before {
   color: #000000;
   margin-bottom: 5px;
   text-shadow: 2px 2px 4px rgb(255, 255, 255);
-  /* NOVO: Garante que o título fique em uma única linha */
   white-space: nowrap; 
   overflow: hidden; 
   text-overflow: ellipsis;
@@ -117,7 +112,6 @@ body::before {
 
 /* Menu de itens / links do cardápio */
 nav {
-  /* MODIFICADO: Adicionado margem superior e ajustado a inferior */
   margin-bottom: 15px;
   margin-top: 15px;
   width: 100%;
@@ -125,7 +119,6 @@ nav {
 
 nav .menu li {
   list-style: none;
-  /* MODIFICADO: Aumentado o espaçamento entre os botões */
   margin: 10px 0;
 }
 
@@ -137,30 +130,48 @@ nav .menu a {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: #F4A261; /* laranja nordestino */
+  background: #F4A261;
   border-radius: 10px;
   transition: all 0.3s ease;
   width: 100%;
   border: 1px solid #3F6C3A;
-  /* MODIFICADO: Aumentado o padding vertical para dar mais altura ao botão */
-  padding: 12px 10px; 
-  /* NOVO: Aumentado um pouco a fonte */
-  font-size: 1.1rem;
+  padding: 9px 10px;
+  font-size: 1rem;
 }
 
 nav .menu a:hover {
-  background: #A56F4F; /* marrom claro */
+  background: #ff7a2cc9;
   color: #000000;
   border-color: #dcb82b;
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(220, 184, 43, 0.3);
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+nav .menu a i {
+  font-size: 1.2rem;
+}
+
+nav #whatsapp-icon {
+  color:green;
+  margin-right:5px;
+}
+
+nav #cardapio-icon {
+  color:#000000;
+  margin-right:5px;
+}
+
+nav #instagram-icon {
+  color:#E1306C;
+  margin-right:5px;
 }
 
 /* Footer */
 footer {
   text-align: center;
-  /* MODIFICADO: Adicionado margem superior */
-  margin-top: 15px;
+  margin-top: 10px;
   font-size: 0.8rem;
   color: #d1d5db;
 }
@@ -176,7 +187,6 @@ footer {
   #profile img {
     width: 90px;
     height: 90px;
-    /* MODIFICADO: Ajustado margin-bottom para mobile */
     margin-bottom: 8px;
   }
 
@@ -184,7 +194,6 @@ footer {
     font-size: 1.2rem;
   }
   nav .menu a {
-    /* MODIFICADO: Ajustado padding e font-size para mobile */
     font-size: 1rem;
     padding: 10px 8px;
   }
@@ -192,11 +201,10 @@ footer {
 
 /* Estilo da seção Horário */
 .horario {
-/* ... código inalterado ... */
-  margin: 1rem auto;
-  padding: 0.5rem;
+  margin: 0 auto;
+  padding: 10px;
   text-align: center;
-  background: #fedc63; /* amarelo milho */
+  background: #fedc63;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   max-width: 600px;
@@ -206,25 +214,31 @@ footer {
 .horario:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  background: #ffd966;
+  background: #f0be2a;
 }
 
 .horario h2 {
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   margin-bottom: 1rem;
   color: #000000;
-  font-weight: 600;
+}
+
+.horario:hover h2 {
+  color: #000000;
+  font-weight: bold;
+  font-size: 1rem;
 }
 
 .horario p {
   font-size: 1rem;
   margin: 0.3rem 0;
-  color: #333;
+  color: #194215;
   font-weight: 500;
 }
 
 .horario:hover p {
-  color: #3F6C3A;
+  color: #194215;
+  font-weight: bold;
 }
 
 /* Pulsar ícone do relógio */
