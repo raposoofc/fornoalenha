@@ -27,10 +27,10 @@
     </div>
 
     <nav class="main-nav" aria-label="Navegação principal">
-      <a class="nav-link" href="#home"   data-target="home"   title="Home">🏠 <span>Home</span></a>
-      <a class="nav-link" href="#pizzas" data-target="pizzas" title="Pizzas">🍕 <span>Pizzas</span></a>
-      <a class="nav-link" href="#sushi"  data-target="sushi"  title="Sushis">🍣 <span>Sushis</span></a>
-      <a class="nav-link" href="#bebidas"data-target="bebidas"title="Bebidas">🥤 <span>Bebidas</span></a>
+      <a class="nav-link" href="#pizzas" data-target="pizzas" title="Pizzas">🍕</a>
+      <a class="nav-link" href="#sushi"  data-target="sushi"  title="Sushis">🍣</a>
+      <a class="nav-link" href="#esfirras"  data-target="esfirras"  title="Esfirras">🥟</a>
+      <a class="nav-link" href="#bebidas"data-target="bebidas"title="Bebidas">🥤</a>
     </nav>
 
     <button class="cart-trigger" id="open-cart" aria-label="Abrir carrinho">
@@ -39,18 +39,10 @@
   </header>
 
   <main class="container">
-    <!-- HERO -->
-    <section class="hero" id="home">
-      <div class="hero-text">
-        <h2>Cardápio</h2>
-        <p>Monte sua pizza, escolha bebidas e agora também nossos sushis. O carrinho mantém tudo salvo 😉</p>
-        <button class="btn btn-primary" id="btn-monte-pizza">🍕 Monte sua pizza</button>
-      </div>
-      <div class="hero-art" aria-hidden="true">🍕</div>
-    </section>
-
+      
     <!-- PIZZAS -->
     <section id="pizzas">
+      <h1>🍕 Pizzas</h1>
       <section class="tabelas">
         <div class="tabela">
           <h3>Pizzas Tradicionais</h3>
@@ -84,17 +76,19 @@
             <li class="muted">Brotinho: —</li>
           </ul>
         </div>
+        <button class="btn btn-primary" id="btn-monte-pizza">🍕 Monte sua pizza</button>
       </section>
     </section>
 
     <!-- SUSHI & DERIVADOS -->
     <section class="secao" id="sushi">
-      <h2>Sushi & Derivados</h2>
+      <h1>🍣 Sushis</h1>
 
       <h3 style="margin:6px 0 10px">🍱 Combinados</h3>
       <div class="cards">
         <div class="card">
           <h3>Combinado 01 <small>(12 peças)</small></h3>
+          <img src="../imgs/combinado1.webp" alt="Combinado de sushis." style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid #fff;">
           <ul>
             <li>4 Hot de Filadélfia</li>
             <li>4 Hot de Camarão</li>
@@ -105,6 +99,7 @@
         </div>
         <div class="card">
           <h3>Combinado 02 <small>(12 peças)</small></h3>
+          <img src="../imgs/combinado2.webp" alt="Combinado de sushis." style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid #fff;">
           <ul>
             <li>4 Hot de Camarão</li>
             <li>4 Hot de Kani</li>
@@ -115,6 +110,7 @@
         </div>
         <div class="card">
           <h3>Combinado 03 <small>(14 peças)</small></h3>
+          <img src="../imgs/combinado3.webp" alt="Combinado de sushis." style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid #fff;">
           <ul>
             <li>2 Uramakis de Salmão</li>
             <li>2 Hossomaki de Kani</li>
@@ -126,6 +122,7 @@
         </div>
         <div class="card">
           <h3>Combinado 04 <small>(19 peças)</small></h3>
+          <img src="../imgs/combinado4.webp" alt="Combinado de sushis." style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid #fff;">
           <ul>
             <li>2 Uramakis de Salmão</li>
             <li>2 Hossomaki de Kani</li>
@@ -138,6 +135,7 @@
         </div>
         <div class="card">
           <h3>Combinado 05 <small>(26 peças)</small></h3>
+          <img src="../imgs/combinado5.webp" alt="Combinado de sushis." style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid #fff;">
           <ul>
             <li>4 Uramakis de Salmão</li>
             <li>4 Hossomaki de Kani</li>
@@ -150,38 +148,43 @@
         </div>
       </div>
 
-      <h3 style="margin:18px 0 10px">🍣 Temakis <small style="color:#8b8d94">(cada)</small></h3>
+      <h2 style="margin:18px 0 10px">🍙 Temakis <small style="color:#8b8d94"></small></h2>
       <div class="cards">
         <div class="card">
-          <h3>Temaki de Salmão</h3>
+          <h3>Salmão</h3>
+          <img src="../imgs/tsalmao.webp" alt="Temaki de Salmão." style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid #fff;">
           <p>Cones de alga com arroz e salmão.</p>
           <span class="price">R$ 36,90</span>
           <button class="btn btn-add" onclick="addToCart('Temaki de Salmão', 36.90, 1)">Adicionar</button>
         </div>
         <div class="card">
-          <h3>Temaki de Salmão Grelhado</h3>
+          <h3>Salmão Grelhado</h3>
+          <img src="../imgs/tsalmaogrelhado.webp" alt="Temaki de Salmão Grelhado." style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid #fff;">
           <p>Salmão grelhado no cone de alga com arroz.</p>
           <span class="price">R$ 36,90</span>
           <button class="btn btn-add" onclick="addToCart('Temaki de Salmão Grelhado', 36.90, 1)">Adicionar</button>
         </div>
         <div class="card">
-          <h3>Temaki de Polvo</h3>
+          <h3>Polvo</h3>
+          <img src="../imgs/tpolvo.webp" alt="Temaki de Polvo." style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid #fff;">
           <p>Polvo selecionado, arroz e alga.</p>
           <span class="price">R$ 36,90</span>
           <button class="btn btn-add" onclick="addToCart('Temaki de Polvo', 36.90, 1)">Adicionar</button>
         </div>
         <div class="card">
-          <h3>Temaki de Camarão</h3>
+          <h3>Camarão</h3>
+          <img src="../imgs/tcamarao.webp" alt="Temaki de Camarão." style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid #fff;">
           <p>Camarão, arroz e alga crocante.</p>
           <span class="price">R$ 36,90</span>
           <button class="btn btn-add" onclick="addToCart('Temaki de Camarão', 36.90, 1)">Adicionar</button>
         </div>
       </div>
 
-      <h3 style="margin:18px 0 10px">🍣 Sushidog</h3>
+      <h2 style="margin:18px 0 10px">🌮 Sushidog</h2>
       <div class="cards">
         <div class="card">
           <h3>Sushidog</h3>
+          <img src="../imgs/sushidog.webp" alt="Pepsi 1L." style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid #fff;">
           <p>Clássico da casa.</p>
           <span class="price">R$ 37,90</span>
           <button class="btn btn-add" onclick="addToCart('Sushidog', 37.90, 1)">Adicionar</button>
@@ -191,22 +194,25 @@
 
     <!-- BEBIDAS -->
     <section class="secao" id="bebidas">
-      <h2>🥤 Refrigerantes</h2>
+      <h1>🥤 Refrigerantes</h1>
       <div class="cards" id="cards-bebidas">
         <div class="card">
           <h3>Coca-Cola 1L</h3>
+          <img src="../imgs/coca1l.webp" alt="Coca-Cola 1L." style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid #fff;">
           <p>Refrigerante Coca-Cola 1 Litro.</p>
           <span class="price">R$ 8,90</span>
           <button class="btn btn-add" onclick="addToCart('Coca-Cola 1L', 8.90, 1)">Adicionar</button>
         </div>
         <div class="card">
           <h3>Guaraná 1L</h3>
+          <img src="../imgs/guarana1l.webp" alt="Guaraná 1L." style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid #fff;">
           <p>Refrigerante Guaraná 1 Litro.</p>
           <span class="price">R$ 6,90</span>
           <button class="btn btn-add" onclick="addToCart('Guaraná 1L', 6.90, 1)">Adicionar</button>
         </div>
         <div class="card">
           <h3>Pepsi 1L</h3>
+          <img src="../imgs/pepsi1l.webp" alt="Pepsi 1L." style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid #fff;">
           <p>Refrigerante Pepsi 1 Litro.</p>
           <span class="price">R$ 6,90</span>
           <button class="btn btn-add" onclick="addToCart('Pepsi 1L', 6.90, 1)">Adicionar</button>
