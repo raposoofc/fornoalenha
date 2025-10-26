@@ -675,7 +675,9 @@ btnFinalizar?.addEventListener('click', () => {
   comandaDigitalEl.classList.add('comanda-active'); 
 
   html2canvas(comandaDigitalEl, { 
-      backgroundColor: '#ffffff' 
+      backgroundColor: '#ffffff',
+      scale: 3,
+      useCORS: true 
   }).then(canvas => {
       
       comandaDigitalEl.classList.remove('comanda-active'); 
@@ -689,8 +691,14 @@ btnFinalizar?.addEventListener('click', () => {
       link.click();
       document.body.removeChild(link);
       
-      const texto = montarMensagemWhatsApp();
-      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}%0A%0A*AVISO*: Sua comanda digital foi salva em seus arquivos (imagem).`;
+      const mensagemCurta = 
+        `🍕 *NOVO PEDIDO - Forno à Lenha* Olá, segue a imagem da comanda digital em anexo (PNG) para finalizar meu pedido!
+        
+        *Total:* ${cartTotal.textContent}
+        *Nome:* ${deliveryState.nome || "Não informado"}
+        *Telefone:* ${deliveryState.telefone || "Não informado"}`;
+
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensagemCurta)}`;
       
       setTimeout(() => {
           window.open(url, '_blank');
