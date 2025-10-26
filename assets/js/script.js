@@ -2,9 +2,7 @@
  * CONFIGURAÇÃO — AJUSTE PARA SEU NEGÓCIO
  *************************************************/
 
-
 const WHATSAPP_NUMBER = "5582991201916";
-
 
 const PIX_KEY = "59.130.875/0001-50";
 
@@ -12,16 +10,13 @@ const PIX_KEY = "59.130.875/0001-50";
  * DADOS DO CARDÁPIO
  *************************************************/
 
-// Preços das pizzas por família e tamanho
 const PRECO_PIZZA = {
   Tradicional: { Brotinho: 19.90, Média: 36.90, Grande: 46.90 },
   Especial:    { Brotinho: 29.90, Média: 48.90, Grande: 58.90 },
   Doce:        { Brotinho: null,  Média: 38.90, Grande: 48.90 }
 };
 
-// Preço das bordas conforme tamanho
 const PRECO_BORDA = { Brotinho: 0.00, Média: 11.90, Grande: 14.90 };
-
 
 const SABORES = {
   Tradicional: [
@@ -35,13 +30,13 @@ const SABORES = {
     { name: "Napolitana", imagePath: "../imgs/pizza/napolitana.webp" }
   ],
   Especial: [
-    { name: "Frango com Catupiry", imagePath: "../imgs/pizza/frangocatupiry.webp" },
-    { name: "Carne de Sol", imagePath: "../imgs/pizza/carnedesol.webp" },
+    { name: "Frango com Catupiry", imagePath: "../imgs/pizza/frango_catupiry.webp" },
+    { name: "Carne de Sol", imagePath: "../imgs/pizza/carne_de_sol.webp" },
     { name: "Nordestina", imagePath: "../imgs/pizza/nordestina.webp" },
     { name: "Camarão", imagePath: "../imgs/pizza/camarao.webp" },
     { name: "Portuguesa", imagePath: "../imgs/pizza/portuguesa.webp" },
-    { name: "Lombo Canadense", imagePath: "../imgs/pizza/lombocanadense.webp" },
-    { name: "Quatro Queijos", imagePath: "../imgs/pizza/quatroqueijos.webp" },
+    { name: "Lombo Canadense", imagePath: "../imgs/pizza/lombo_canadense.webp" },
+    { name: "Quatro Queijos", imagePath: "../imgs/pizza/quatro_queijos.webp" },
     { name: "Bacon", imagePath: "../imgs/pizza/bacon.webp" },
     { name: "Atum", imagePath: "../imgs/pizza/atum.webp" },
     { name: "Catupirela", imagePath: "../imgs/pizza/catupirela.webp" }
@@ -51,16 +46,16 @@ const SABORES = {
     { name: "Ovomaltine", imagePath: "../imgs/pizza/ovomaltine.webp" },
     { name: "M&M", imagePath: "../imgs/pizza/m&m.webp" },
     { name: "Banana", imagePath: "../imgs/pizza/banana.webp" },
-    { name: "Romeu e Julieta", imagePath: "../imgs/pizza/romeuejulieta.webp" }
+    { name: "Romeu e Julieta", imagePath: "../imgs/pizza/romeu_e_julieta.webp" }
   ]
 };
 
 const BORDAS = [
-    { name: "Nenhuma", imagePath: "../imgs/borda/vazio.png" },
+    { name: "Nenhuma", imagePath: "../imgs/borda/nenhuma.webp" },
     { name: "Mussarela", imagePath: "../imgs/borda/mussarela.webp" },
     { name: "Cheddar", imagePath: "../imgs/borda/cheddar.webp" },
     { name: "Catupiry", imagePath: "../imgs/borda/catupiry.webp" },
-    { name: "Creme Cheese", imagePath: "../imgs/borda/cremecheese.webp" },
+    { name: "Creme Cheese", imagePath: "../imgs/borda/creme_cheese.webp" },
     { name: "Chocolate", imagePath: "../imgs/borda/chocolate.webp" }
 ];
 const TAMANHOS = ["Brotinho", "Média", "Grande"];
@@ -71,7 +66,7 @@ const TAMANHOS = ["Brotinho", "Média", "Grande"];
  *************************************************/
 let cart = JSON.parse(localStorage.getItem("cart_fornoalenha") || "[]");
 const deliveryState = {
-  modo: "retirada",
+  modo: "retirada", 
   nome: "",
   telefone: "",
   rua: "",
@@ -79,9 +74,9 @@ const deliveryState = {
   complemento: "",
   cep: "",
   referencia: "",
-  bairro: "",
-  
-  formaPagamento: "dinheiro",
+  bairro: "", 
+
+  formaPagamento: "dinheiro", 
   valorPago: 0,
   precisaTroco: false,
   trocoPara: 0
@@ -96,7 +91,6 @@ const openCartBtn  = document.getElementById('open-cart');
 const closeCartBtn = document.getElementById('close-cart');
 const cartItemsEl  = document.getElementById('cart-items');
 const cartSubtotal = document.getElementById('cart-subtotal');
-
 const cartTotal    = document.getElementById('cart-total');
 const cartCount    = document.getElementById('cart-count');
 const btnFinalizar = document.getElementById('btn-finalizar');
@@ -110,7 +104,9 @@ const tamanhoOptionsEl = document.getElementById('tamanho-options');
 const saborOptionsEl   = document.getElementById('sabor-options');
 const bordaOptionsEl   = document.getElementById('borda-options');
 const hintPrecosFamilia = document.getElementById('hint-precos-familia');
-const btnVoltarPizza = document.getElementById('btn-voltar-pizza');
+const btnVoltarPizza = document.getElementById('btn-voltar-pizza'); 
+
+const comandaDigitalEl = document.getElementById('comanda-digital'); 
 
 const radiosModoEntrega = document.querySelectorAll('input[name="modo-entrega"]');
 const deliveryFieldsBox = document.getElementById('delivery-fields');
@@ -121,7 +117,7 @@ const inputCep = document.getElementById('cep');
 const inputReferencia = document.getElementById('referencia');
 const inputNome = document.getElementById('nome');
 const inputTelefone = document.getElementById('telefone');
-const inputBairro = document.getElementById('bairro');
+const inputBairro = document.getElementById('bairro'); 
 
 const selectFormaPagamento = document.getElementById('forma-pagamento-select');
 const dinheiroFields = document.getElementById('dinheiro-fields');
@@ -157,11 +153,15 @@ navLinks.forEach(a => {
 (function initDeliveryAndPaymentFields() {
   
   if (pixKeyEl) {
-    pixKeyEl.value = PIX_KEY;
+    pixKeyEl.value = PIX_KEY; 
     pixKeyEl.parentElement.addEventListener('click', () => {
       navigator.clipboard.writeText(PIX_KEY);
       alert("Chave PIX copiada para a área de transferência!");
     });
+  }
+
+  if (inputTroco && checkboxTroco && !checkboxTroco.checked) {
+      inputTroco.disabled = true; 
   }
 
   radiosModoEntrega.forEach(r => {
@@ -184,13 +184,13 @@ navLinks.forEach(a => {
   inputReferencia?.addEventListener('input', e => deliveryState.referencia = e.target.value);
   inputNome?.addEventListener('input', e => deliveryState.nome = e.target.value);
   inputTelefone?.addEventListener('input', e => deliveryState.telefone = e.target.value);
-
+  
   if (selectFormaPagamento) {
       selectFormaPagamento.addEventListener('change', (e) => {
           deliveryState.formaPagamento = e.target.value;
           dinheiroFields.classList.add('hidden');
           pixFields.classList.add('hidden');
-
+          
           deliveryState.precisaTroco = false;
           deliveryState.trocoPara = 0;
           if (checkboxTroco) checkboxTroco.checked = false;
@@ -198,13 +198,14 @@ navLinks.forEach(a => {
           
           if (deliveryState.formaPagamento === "dinheiro") {
               dinheiroFields.classList.remove('hidden');
+              if (inputTroco) inputTroco.disabled = true;
           } else if (deliveryState.formaPagamento === "pix") {
               pixFields.classList.remove('hidden');
           }
           renderCart();
       });
   }
-
+  
   checkboxTroco?.addEventListener('change', e => {
     deliveryState.precisaTroco = e.target.checked;
     if (!e.target.checked) {
@@ -263,7 +264,7 @@ function populatePizzaOptions() {
     ${renderGrupoSabores("Doces", SABORES.Doce, "Doce")}
   `;
 
-  // --- MUDANÇA PARA INCLUIR IMAGEM NAS BORDAS ---
+
   bordaOptionsEl.innerHTML = BORDAS.map((b, i) => `
     <input type="radio" id="borda-${i}" name="borda" value="${b.name}" ${b.name === "Nenhuma" ? "checked" : ""}>
     <label for="borda-${i}">
@@ -271,7 +272,6 @@ function populatePizzaOptions() {
         ${b.name}
     </label>
   `).join('');
-
 
   pizzaForm.querySelectorAll('input').forEach(input => {
     input.addEventListener('change', handlePizzaChange);
@@ -423,7 +423,7 @@ function renderCart() {
 
   cart.forEach((item, idx) => {
     const line = item.price * item.qty;
-    subtotal += line;
+    subtotal += line; 
 
     const metaLines = [];
     if (item.meta?.tamanho) metaLines.push(`Tamanho: ${item.meta.tamanho}`);
@@ -452,7 +452,6 @@ function renderCart() {
     cartItemsEl.appendChild(el);
   });
 
-
   const total = subtotal;
 
   cartSubtotal.textContent = formatBRL(subtotal);
@@ -460,6 +459,96 @@ function renderCart() {
   cartCount.textContent    = cart.reduce((s,i)=>s+i.qty,0);
 
   saveCart();
+}
+
+
+/*************************************************
+ * FUNÇÃO DE RENDERIZAÇÃO DA COMANDA DIGITAL
+ *************************************************/
+function renderComandaDigital() {
+  const LOGO_PATH = '../imgs/fornoalenha.webp';
+
+    const cartItemsHtml = cart.map(i => {
+        const meta = [];
+        if (i.meta?.tamanho) meta.push(`T: ${i.meta.tamanho}`);
+        if (i.meta?.borda && i.meta?.borda !== "Nenhuma") meta.push(`Borda: ${i.meta.borda}`);
+        
+        const saboresDisplay = i.meta?.sabores?.slice(0, 2).join(' / ');
+        if (i.meta?.sabores?.length > 2) saboresDisplay += '...';
+        if (saboresDisplay) meta.push(`Sabores: ${saboresDisplay}`);
+
+        const metaText = meta.join(' | ');
+        const linePrice = formatBRL(i.price * i.qty);
+
+        return `
+            <div class="item-comanda">
+                <span class="qty">${i.qty}x</span>
+                <span class="name">${i.name}</span>
+                <span class="price">${linePrice}</span>
+                ${metaText ? `<span class="meta-comanda">${metaText}</span>` : ''}
+            </div>
+        `;
+    }).join('');
+
+    const subtotal = cart.reduce((s,i)=>s+i.price*i.qty,0);
+    const total = subtotal;
+    const randomOrderId = Math.floor(Math.random() * 9000) + 1000;
+
+
+    let pagamentoInfo = '';
+    if (deliveryState.formaPagamento === "dinheiro") {
+        pagamentoInfo = `Dinheiro`;
+        if (deliveryState.precisaTroco) {
+            const troco = deliveryState.trocoPara - total;
+            pagamentoInfo += ` | Troco para: ${formatBRL(deliveryState.trocoPara)} (Devolver ${formatBRL(troco)})`;
+        }
+    } else if (deliveryState.formaPagamento === "debito") {
+        pagamentoInfo = `Cartão de Débito`;
+    } else if (deliveryState.formaPagamento === "credito") {
+        pagamentoInfo = `Cartão de Crédito`;
+    } else if (deliveryState.formaPagamento === "pix") {
+        pagamentoInfo = `PIX (${PIX_KEY})`;
+    }
+
+    let enderecoInfo = '';
+    if (deliveryState.modo === "delivery") {
+        enderecoInfo = `
+            <p><strong>Entrega:</strong> Delivery</p>
+            <p><strong>End.:</strong> ${deliveryState.rua}, ${deliveryState.numero} - ${deliveryState.bairro}</p>
+            ${deliveryState.complemento ? `<p><strong>Comp.:</strong> ${deliveryState.complemento}</p>` : ''}
+            ${deliveryState.referencia ? `<p><strong>Ref.:</strong> ${deliveryState.referencia}</p>` : ''}
+        `;
+    } else {
+        enderecoInfo = `<p><strong>Entrega:</strong> Retirada no Balcão</p>`;
+    }
+
+
+    const comandaHtml = `
+        <div class="header-comanda">
+            <img src="${LOGO_PATH}" alt="Logo Forno à Lenha" class="comanda-logo">
+            <h3>FORNO À LENHA PIZZARIA</h3>
+            <p>Pedido #${randomOrderId} | ${new Date().toLocaleTimeString('pt-BR')}</p>
+        </div>
+
+        <div>${cartItemsHtml}</div>
+
+        <div class="footer-comanda">
+            <p>Subtotal: ${formatBRL(subtotal)}</p>
+            <p>Taxa de Entrega: ${formatBRL(0)}</p>
+            <p class="total-comanda">Total: ${formatBRL(total)}</p>
+            <p style="margin-top:10px;"><strong>Pagamento:</strong> ${pagamentoInfo}</p>
+        </div>
+
+        <div class="dados-cliente">
+            <p><strong>Nome:</strong> ${deliveryState.nome}</p>
+            <p><strong>Tel.:</strong> ${deliveryState.telefone}</p>
+            ${enderecoInfo}
+        </div>
+        
+        <p style="text-align:center; font-size:0.8rem; margin-top:20px;">Obrigado pelo seu pedido!</p>
+    `;
+
+    comandaDigitalEl.innerHTML = comandaHtml;
 }
 
 
@@ -541,15 +630,15 @@ function validarDadosAntesDeEnviar() {
         alert('Informe o Bairro, Rua/Avenida e número para a entrega.'); return false; 
     }
   }
-
+  
   if (deliveryState.formaPagamento === "dinheiro" && deliveryState.precisaTroco) {
       const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
       if (deliveryState.trocoPara < total) {
-          alert('O valor para troco deve ser maior ou igual ao total do pedido.');
+          alert('O valor para troco deve ser maior que o total do pedido.');
           return false;
       }
   }
-
+  
   if (deliveryState.formaPagamento === "pix") {
       if (!confirm("Você selecionou PIX. Certifique-se de que o pagamento será feito ANTES de enviar o pedido. Deseja continuar?")) {
           return false;
@@ -565,11 +654,10 @@ function validarDadosAntesDeEnviar() {
  *************************************************/
 function openCart(){
   cartDrawer.classList.add('open');
-  document.body.classList.add('lock-scroll');
-}
+  document.body.classList.add('lock-scroll');  
 function closeCart(){
   cartDrawer.classList.remove('open');
-  document.body.classList.remove('lock-scroll');
+  document.body.classList.remove('lock-scroll'); o
 }
 
 openCartBtn?.addEventListener('click', openCart);
@@ -582,14 +670,45 @@ btnContinuar?.addEventListener('click', () => {
 
 btnFinalizar?.addEventListener('click', () => {
   if (!validarDadosAntesDeEnviar()) return;
-  const texto = montarMensagemWhatsApp();
-  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}`;
-  window.open(url, '_blank');
+  
+  renderComandaDigital();
+  comandaDigitalEl.classList.add('comanda-active'); 
+
+  html2canvas(comandaDigitalEl, { 
+      backgroundColor: '#ffffff' 
+  }).then(canvas => {
+      
+      comandaDigitalEl.classList.remove('comanda-active'); 
+      
+      const imageURL = canvas.toDataURL('image/png');
+      
+      const link = document.createElement('a');
+      link.href = imageURL;
+      link.download = `Comanda_FornoALenha_${new Date().getTime()}.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      const texto = montarMensagemWhatsApp();
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}%0A%0A*AVISO*: Sua comanda digital foi salva em seus arquivos (imagem).`;
+      
+      setTimeout(() => {
+          window.open(url, '_blank');
+      }, 500); 
+      
+  }).catch(error => {
+      console.error('Erro ao gerar a imagem da comanda:', error);
+      alert('Não foi possível gerar a comanda digital. O pedido será enviado por texto no WhatsApp.');
+      
+      const texto = montarMensagemWhatsApp();
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}`;
+      window.open(url, '_blank');
+  });
 });
 
 btnMontePizza?.addEventListener('click', () => {
   pizzaModal.classList.add('open');
-  document.body.classList.add('lock-scroll'); 
+  document.body.classList.add('lock-scroll');  
   populatePizzaOptions();
 });
 closeModalBtn?.addEventListener('click', () => {
@@ -603,8 +722,8 @@ pizzaModal?.addEventListener('click', (e) => {
   }
 });
 btnVoltarPizza?.addEventListener('click', () => {
-  pizzaModal.classList.remove('open');
-  document.body.classsList.remove('lock-scroll');
+    pizzaModal.classList.remove('open');
+    document.body.classList.remove('lock-scroll');
 });
 
 pizzaForm?.addEventListener('submit', (e) => {
@@ -618,3 +737,4 @@ pizzaForm?.addEventListener('submit', (e) => {
 });
 
 renderCart();
+}

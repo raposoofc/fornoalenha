@@ -43,7 +43,7 @@ body.lock-scroll {
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:10px 16px;
+  padding:5px 16px;
   backdrop-filter: saturate(180%) blur(10px);
   background: rgba(11,12,15,0.55);
   border-bottom:1px solid var(--line);
@@ -55,7 +55,7 @@ body.lock-scroll {
 
 .brand {
   display:flex;
-  gap:12px;
+  gap:10px;
   align-items:center;
   text-decoration:none;
   color:inherit;
@@ -591,6 +591,181 @@ legend {
   border-top:1px solid var(--line);
   text-align:center;
   color:var(--muted);
+}
+
+#comanda-digital {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -10; 
+    width: 380px; 
+    padding: 20px;
+    background-color: white; 
+    color: #101114; 
+    font-family: monospace; 
+    line-height: 1.5;
+    display: none; 
+}
+
+#comanda-digital h3 {
+    text-align: center;
+    margin: 5px 0 15px 0;
+    font-size: 1.2rem;
+    color: var(--acc); 
+}
+#comanda-digital .header-comanda {
+    text-align: center;
+    border-bottom: 2px dashed #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+#comanda-digital .item-comanda {
+    display: flex; 
+    justify-content: space-between;
+    border-bottom: 1px dotted #ccc;
+    padding: 5px 0;
+    font-size: 0.9rem;
+    flex-wrap: wrap;
+}
+#comanda-digital .item-comanda .qty {
+    flex-basis: 15%;
+}
+#comanda-digital .item-comanda .name {
+    flex-basis: 55%;
+}
+#comanda-digital .item-comanda .price {
+    flex-basis: 30%;
+    text-align: right;
+    font-weight: bold;
+}
+#comanda-digital .meta-comanda {
+    display: block;
+    width: 100%; 
+    font-size: 0.8rem;
+    color: #555;
+    margin-top: 2px;
+    padding-left: 5px;
+}
+#comanda-digital .footer-comanda {
+    border-top: 2px dashed #ccc;
+    padding-top: 10px;
+    margin-top: 15px;
+    font-size: 0.95rem;
+}
+#comanda-digital .total-comanda {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--acc);
+}
+#comanda-digital .dados-cliente {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #ccc;
+}
+#comanda-digital .dados-cliente p {
+    margin: 2px 0;
+}
+
+.comanda-active {
+    display: block !important;
+}
+
+/* =========================================
+   ESTILOS PARA A COMANDA DIGITAL (NOVO)
+   ========================================= */
+
+#comanda-digital {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -10; 
+    width: 380px; 
+    padding: 20px;
+    background-color: white; 
+    color: #101114; 
+    font-family: monospace; 
+    line-height: 1.5;
+    display: none; 
+}
+
+#comanda-digital .comanda-logo {
+    display: block;
+    width: 120px;
+    height: auto;
+    margin: 0 auto 10px auto;
+    mix-blend-mode: multiply; 
+}
+
+#comanda-digital h3 {
+    text-align: center;
+    margin: 5px 0 15px 0;
+    font-size: 1.2rem;
+    color: var(--acc); 
+}
+
+#comanda-digital .header-comanda {
+    text-align: center;
+    border-bottom: 2px dashed #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+#comanda-digital .item-comanda {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px dotted #ccc;
+    padding: 5px 0;
+    font-size: 0.9rem;
+    flex-wrap: wrap;
+}
+
+#comanda-digital .item-comanda .qty {
+    flex-basis: 15%;
+}
+
+#comanda-digital .item-comanda .name {
+    flex-basis: 55%;
+}
+
+#comanda-digital .item-comanda .price {
+    flex-basis: 30%;
+    text-align: right;
+    font-weight: bold;
+}
+
+#comanda-digital .meta-comanda {
+    display: block;
+    width: 100%; 
+    font-size: 0.8rem;
+    color: #555;
+    margin-top: 2px;
+    padding-left: 5px;
+}
+
+#comanda-digital .footer-comanda {
+    border-top: 2px dashed #ccc;
+    padding-top: 10px;
+    margin-top: 15px;
+    font-size: 0.95rem;
+}
+
+#comanda-digital .total-comanda {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--acc);
+}
+
+#comanda-digital .dados-cliente {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #ccc;
+}
+
+#comanda-digital .dados-cliente p {
+    margin: 2px 0;
+}
+
+.comanda-active {
+    display: block !important;
 }
 
 /* =========================================

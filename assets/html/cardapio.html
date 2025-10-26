@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../css/cardapio.css"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="../icon/fornoalenha.ico" type="image/x-icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 
 <body>
@@ -191,6 +192,7 @@
     </section>
     
     <section class="secao" id="esfiha">
+      <h1>🥟 Esfihas</h1>
       <h2 style="margin:18px 0 10px">Tradicionais <small style="color:#8b8d94"></small></h2>
       <div class="cards">
         <div class="card">
@@ -371,8 +373,8 @@
         </div>
         <div class="field">
           <label for="troco-para">Troco para quanto?</label>
-          <input type="text" id="troco-para" placeholder="Ex: 50,00" disabled />
-          <small class="hint">O valor deve ser igual ou superior ao total do pedido.</small>
+          <input type="text" id="troco-para" placeholder="Ex: 50,00" />
+          <small class="hint">O valor deve ser superior ao total do pedido.</small>
         </div>
       </div>
       
@@ -447,6 +449,8 @@
     <small>&copy; 2025 - <a href="https://portfolioraposoofc.vercel.app" style="text-decoration: none; color: #fff;">Rapôso Web Dev</a> | Todos os direitos reservados.</small>
   </footer>
 
+  <div id="comanda-digital">
+  </div>
   <script src="../js/script.js"></script>
 </body>
 </html>
