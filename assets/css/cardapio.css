@@ -231,6 +231,19 @@ section .tabelas {
   display:flex;flex-direction:column;gap:6px;
 }
 
+/* Novo estilo para a imagem do produto */
+.card-img {
+    width: 100%;
+    /* Altura fixa para manter a consistência e dar espaço para a imagem */
+    height: 180px; 
+    object-fit: cover;
+    border-radius: 10px;
+    /* Placeholder visual para a imagem */
+    background: #20222b; 
+    border: 1px dashed var(--line);
+    margin-bottom: 8px; /* Espaçamento entre foto e nome/conteúdo */
+}
+
 .card h3 {
   margin:0;
 }
@@ -523,8 +536,18 @@ legend {
   gap:8px;
 }
 
-/* Estilos para a label e imagem do sabor dentro do modal (NOVO) */
-.modal-content .options-grid label {
+/* Aplicando layout de grade para as bordas (NOVO) */
+#borda-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
+    gap: 8px;
+    margin: 8px 0; 
+}
+
+
+/* Estilos para a label e imagem do sabor dentro do modal (COMPARTILHADO) */
+.modal-content .options-grid label,
+#borda-options label { /* Adicionado #borda-options label */
     display: flex;
     flex-direction: column; /* Coloca a imagem acima do nome */
     align-items: center;
@@ -573,7 +596,14 @@ legend {
 .modal-actions {
   display:flex;
   justify-content:flex-end;
+  gap: 10px;
   margin-top:10px;
+}
+
+.btn-secondary {
+  background: #2c2f39;
+  color: #fff;
+  border: 1px solid var(--line);
 }
 
 .rodape {
@@ -633,8 +663,9 @@ legend {
     padding-top: 100px;
   }
   
-  /* Ajusta grid de sabores para 2 colunas em telas pequenas */
-  .options-grid {
+  /* Ajusta grid de sabores e bordas para 2 colunas em telas pequenas */
+  .options-grid,
+  #borda-options { /* Adicionado #borda-options */
     grid-template-columns:repeat(auto-fit,minmax(100px,1fr)); 
   }
   .sabor-img {

@@ -57,15 +57,15 @@ const SABORES = {
   ]
 };
 
-// Bordas e tamanhos
+// Bordas e tamanhos - AGORA COM CAMPO 'imagePath'
 const BORDAS = [
-    { name: "Nenhuma",},
-    { name: "Mussarela", imagePath: "../imgs/pizza/mussarela.webp" },
-    { name: "Cheddar", imagePath: "../imgs/pizza/cheddar.webp" },
-    { name: "Catupiry", imagePath: "../imgs/pizza/catupiry.webp" },
-    { name: "Creme Cheese", imagePath: "../imgs/pizza/cremecheese.webp" },
-    { name: "Chocolate", imagePath: "../imgs/pizza/chocolate.webp" }
-  ];
+    { name: "Nenhuma", imagePath: "../imgs/borda/vazio.png" },
+    { name: "Mussarela", imagePath: "../imgs/borda/mussarela.webp" },
+    { name: "Cheddar", imagePath: "../imgs/borda/cheddar.webp" },
+    { name: "Catupiry", imagePath: "../imgs/borda/catupiry.webp" },
+    { name: "Creme Cheese", imagePath: "../imgs/borda/cremecheese.webp" },
+    { name: "Chocolate", imagePath: "../imgs/borda/chocolate.webp" }
+];
 const TAMANHOS = ["Brotinho", "Média", "Grande"];
 
 
@@ -114,6 +114,7 @@ const tamanhoOptionsEl = document.getElementById('tamanho-options');
 const saborOptionsEl   = document.getElementById('sabor-options');
 const bordaOptionsEl   = document.getElementById('borda-options');
 const hintPrecosFamilia = document.getElementById('hint-precos-familia');
+const btnVoltarPizza = document.getElementById('btn-voltar-pizza');
 
 // Campos de entrega/contato
 const radiosModoEntrega = document.querySelectorAll('input[name="modo-entrega"]');
@@ -279,10 +280,15 @@ function populatePizzaOptions() {
     ${renderGrupoSabores("Doces", SABORES.Doce, "Doce")}
   `;
 
+  // --- MUDANÇA PARA INCLUIR IMAGEM NAS BORDAS ---
   bordaOptionsEl.innerHTML = BORDAS.map((b, i) => `
-    <input type="radio" id="borda-${i}" name="borda" value="${b}" ${b === "Nenhuma" ? "checked" : ""}>
-    <label for="borda-${i}">${b}</label>
+    <input type="radio" id="borda-${i}" name="borda" value="${b.name}" ${b.name === "Nenhuma" ? "checked" : ""}>
+    <label for="borda-${i}">
+        <img src="${b.imagePath}" alt="Borda de ${b.name}" class="sabor-img" loading="lazy">
+        ${b.name}
+    </label>
   `).join('');
+  // ---------------------------------------------
 
   pizzaForm.querySelectorAll('input').forEach(input => {
     input.addEventListener('change', handlePizzaChange);
@@ -618,6 +624,10 @@ pizzaModal?.addEventListener('click', (e) => {
     document.body.classList.remove('lock-scroll');
   }
 });
+btnVoltarPizza?.addEventListener('click', () => {
+  pizzaModal.classList.remove('open');
+  document.body.classsList.remove('lock-scroll');
+});
 
 /* Submit da pizza */
 pizzaForm?.addEventListener('submit', (e) => {
@@ -632,4 +642,3 @@ pizzaForm?.addEventListener('submit', (e) => {
 
 /* Carregar carrinho salvo ao abrir a página */
 renderCart();
-// Fechar o iffee principal do arquivo
