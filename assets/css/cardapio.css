@@ -28,13 +28,11 @@ body {
   color:var(--text);
 }
 
-/* trava o fundo quando cart/modal estiverem abertos */
 body.lock-scroll {
   height:100%;
   overflow:hidden;
 }
 
-/* Header fixo com efeito vidro (transparência + blur) */
 .topbar.glass {
   position:fixed; 
   top:0;
@@ -93,12 +91,12 @@ body.lock-scroll {
   display:flex;
   align-items:center;
   gap:6px;
-  padding:8px 15px; /* Ajuste para desktop */
+  padding:8px 15px;
   border-radius:10px;
   color:var(--text);
   text-decoration:none;
   border:1px solid transparent;
-  font-size: 1rem; /* Ajuste para desktop */
+  font-size: 1rem; 
 }
 
 .main-nav .nav-link:hover {
@@ -121,21 +119,16 @@ body.lock-scroll {
   font-size: 1.5rem;
 }
 
-/* Layout base */
 .container {
   max-width:1100px;
   margin:24px auto;
   padding:0 16px;
   padding-top: 100px; 
 }
-
-/* espaço para o header não cobrir o início das seções ao navegar por âncora */
 section .tabelas {
   scroll-margin-top: 76px;
 }
 
-
-/* Hero */
 .hero {
   display:grid;
   grid-template-columns:1.2fr .8fr;
@@ -160,7 +153,6 @@ section .tabelas {
   text-align:right;
 }
 
-/* Tabelas rápidas */
 .tabelas {
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
@@ -200,7 +192,6 @@ section .tabelas {
   color:var(--muted);
 }
 
-/* Secões */
 .secao {
   margin:28px 0;
 }
@@ -209,7 +200,6 @@ section .tabelas {
   margin:0 0 12px 0;
 }
 
-/* Cards de itens (Ponto 4: Layout Flex com Scroll Horizontal) */
 .cards {
   display: flex; 
   gap: 16px;
@@ -231,17 +221,14 @@ section .tabelas {
   display:flex;flex-direction:column;gap:6px;
 }
 
-/* Novo estilo para a imagem do produto */
 .card-img {
     width: 100%;
-    /* Altura fixa para manter a consistência e dar espaço para a imagem */
     height: 180px; 
     object-fit: cover;
     border-radius: 10px;
-    /* Placeholder visual para a imagem */
     background: #20222b; 
     border: 1px dashed var(--line);
-    margin-bottom: 8px; /* Espaçamento entre foto e nome/conteúdo */
+    margin-bottom: 8px;
 }
 
 .card h3 {
@@ -291,7 +278,7 @@ section .tabelas {
   background:#0c0d11;
   border-left:1px solid var(--line);
   transition:right .25s ease;
-  z-index:200; /* <== CORREÇÃO PONTO 1: Aumentar z-index para ficar acima do header (100) */
+  z-index:200;
   display:flex;
   flex-direction:column;
   overflow-y:auto; 
@@ -303,7 +290,6 @@ section .tabelas {
   right:0;
 }
 
-/* header/footer “grudados” durante o scroll */
 .cart-header{
   position:sticky;
   top:0;
@@ -325,7 +311,6 @@ section .tabelas {
   padding:8px;
 }
 
-/* FIX: Estilo para a lista de itens do carrinho ser visível e rolar */
 .cart-items {
   padding:12px;
   display:flex;
@@ -377,7 +362,6 @@ section .tabelas {
   cursor:pointer;
 }
 
-/* formulário e footer */
 .cart-form {
   padding:10px 12px;
   border-top:none;
@@ -404,7 +388,7 @@ section .tabelas {
   font-size:14px;
 }
 
-.field input, .field select { /* Ponto 2: Inclui o select no estilo de input */
+.field input, .field select {
   background:#12131a;
   border:1px solid var(--line);
   border-radius:8px;color:#fff;
@@ -531,12 +515,10 @@ legend {
 
 .options-grid {
   display:grid;
-  /* Garante no mínimo 2 e no máximo 4 colunas em telas grandes */
   grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); 
   gap:8px;
 }
 
-/* Aplicando layout de grade para as bordas (NOVO) */
 #borda-options {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
@@ -545,27 +527,25 @@ legend {
 }
 
 
-/* Estilos para a label e imagem do sabor dentro do modal (COMPARTILHADO) */
 .modal-content .options-grid label,
-#borda-options label { /* Adicionado #borda-options label */
+#borda-options label { 
     display: flex;
-    flex-direction: column; /* Coloca a imagem acima do nome */
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%; /* Ocupa a altura total da grade */
+    height: 100%; 
     text-align: center;
-    padding: 6px; /* Ajusta padding interno */
-    font-size: 14px; /* Otimiza o tamanho da fonte para o card pequeno */
+    padding: 6px;
+    font-size: 14px;
 }
 
-/* Estilo para a imagem do sabor no modal (NOVO) */
 .sabor-img {
     width: 100%;
     height: 80px; 
     object-fit: cover;
     border-radius: 6px;
-    margin-bottom: 4px; /* Espaço entre a imagem e o nome */
-    background: #20222b; /* Placeholder */
+    margin-bottom: 4px; 
+    background: #20222b;
 }
 
 
@@ -613,13 +593,14 @@ legend {
   color:var(--muted);
 }
 
-/* Responsivo */
+/* =========================================
+   RESPONSIVIDADE
+   ========================================= */
 @media (max-width:760px){
   .hero{grid-template-columns:1fr}
   .hero-art{display:none}
   .grid{grid-template-columns:1fr}
 
-  /* Cart em tela cheia no mobile */
   .cart{ width:100vw; right:-100vw; }
   .cart.open{ right:0; }
 
@@ -627,60 +608,56 @@ legend {
   .cart-item{padding:12px}
   .modal-content{max-width:96vw}
 
-  /* Ponto 3: Responsividade do Header */
   .topbar {
     padding: 10px 8px;
   }
-  .brand > div { /* Esconde h1 e span */
+  .brand > div {
     display: none;
   }
   .main-nav {
     flex-grow: 1; 
-    justify-content: space-around; /* Distribui o espaço */
+    justify-content: space-around;
     gap: 0;
   }
   .main-nav .nav-link {
     padding: 6px 4px; 
-    font-size: 1.8rem; /* Ícone um pouco menor */
+    font-size: 1.8rem;
     flex-direction: column; 
     align-items: center;
     text-align: center;
     gap: 2px;
   }
-  .main-nav .nav-link span{ /* Reaparece o nome da seção */
+  .main-nav .nav-link span{
     display: block; 
     font-size: 10px; 
     color: var(--muted);
   }
   
-  /* Ponto 4: Cards com scroll (mobile) */
   .card {
-    width: 85vw; /* Ocupa 85% da largura da viewport para forçar a rolagem e mostrar 1 por vez */
+    width: 85vw;
   }
   
-  /* Ajusta o padding do conteúdo principal no mobile */
+
   .container {
     padding-top: 100px;
   }
   
-  /* Ajusta grid de sabores e bordas para 2 colunas em telas pequenas */
+
   .options-grid,
-  #borda-options { /* Adicionado #borda-options */
+  #borda-options { 
     grid-template-columns:repeat(auto-fit,minmax(100px,1fr)); 
   }
   .sabor-img {
-    height: 60px; /* Reduz a altura da imagem no mobile */
+    height: 60px; 
   }
 }
 
-/* telas muito estreitas (< 440px) – tipografia mais compacta */
 @media (max-width:440px){
   .btn{padding:12px}
   .cart-item .meta{font-size:12px}
   .field label{font-size:13px}
 }
 
-/* telas largas (> 1280px) – mantém rolagem no drawer */
 @media (min-width:1280px){
   .cart{ width:420px; }
 }

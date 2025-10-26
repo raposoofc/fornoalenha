@@ -5,7 +5,7 @@
 
 ## 📝 Sobre o projeto
 
-Este repositório contém o projeto web para a pizzaria delivery **Forno à Lenha Pizzaria**, um estabelecimento que oferece as deliciosas pizzas e sushis da região da cidade de Matriz do Camaragibe/AL.
+Este repositório contém o projeto web para a pizzaria delivery **Forno à Lenha Pizzaria**, um estabelecimento que oferece as deliciosas pizzas, sushis e esfihas da região da cidade de Matriz do Camaragibe/AL.
 
 Consiste em uma página de **Link-in-Bio** e um **Cardápio Digital Interativo** com sistema de pedidos para o delivery.
 
@@ -37,7 +37,7 @@ Consiste em uma página de **Link-in-Bio** e um **Cardápio Digital Interativo**
 * **Página Link-in-Bio Otimizada:** Uma página inicial simples e responsiva com links diretos para o Cardápio, WhatsApp e Instagram.
 * **Cardápio Digital Responsivo:** Interface do menu completa e adaptável a telas de desktop e mobile.
 * **Sistema de Carrinho de Compras:** Funcionalidade completa para adicionar, remover e gerenciar a quantidade de itens no pedido antes da finalização.
-* **Integração com WhatsApp:** Finalização do pedido com geração automática de uma mensagem formatada contendo todos os itens, quantidades e o valor total, pronta para ser enviada ao atendente.
+* **Integração com WhatsApp:** Finalização do pedido com geração automática de uma mensagem formatada contendo todos os itens, quantidades e o valor total, pronta para ser enviada ao atendente, em forma de comanda.
 * **Pagamento Pix Integrado:** Pix dinâmico dentro do carrinho, exibindo a chave e os dados do recebedor.
 * **Destaque do Horário de Funcionamento:** Informação clara sobre o horário de atendimento.
 
@@ -48,6 +48,7 @@ Consiste em uma página de **Link-in-Bio** e um **Cardápio Digital Interativo**
 O projeto é estático e pode ser visualizado em qualquer navegador:
 
 **Localmente:** Clone este repositório para o seu computador e abra o arquivo `index.html`.
+**Na rede:** Acesse o link: ['https://fornoalenha.vercel.app/]
 
 ---
 
