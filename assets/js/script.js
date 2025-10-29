@@ -3,19 +3,16 @@
  *************************************************/
 
 const WHATSAPP_NUMBER = "5582991201916";
-
 const PIX_KEY = "59.130.875/0001-50";
 
 /*************************************************
  * DADOS DO CARDÁPIO
  *************************************************/
-
 const PRECO_PIZZA = {
   Tradicional: { Brotinho: 19.90, Média: 36.90, Grande: 46.90 },
   Especial:    { Brotinho: 29.90, Média: 48.90, Grande: 58.90 },
   Doce:        { Brotinho: null,  Média: 38.90, Grande: 48.90 }
 };
-
 const PRECO_BORDA = { Brotinho: 0.00, Média: 11.90, Grande: 14.90 };
 
 const SABORES = {
@@ -51,15 +48,14 @@ const SABORES = {
 };
 
 const BORDAS = [
-    { name: "Nenhuma", imagePath: "../imgs/borda/nenhuma.png" },
-    { name: "Mussarela", imagePath: "../imgs/borda/mussarela.webp" },
-    { name: "Cheddar", imagePath: "../imgs/borda/cheddar.webp" },
-    { name: "Catupiry", imagePath: "../imgs/borda/catupiry.webp" },
-    { name: "Creme Cheese", imagePath: "../imgs/borda/cremecheese.webp" },
-    { name: "Chocolate", imagePath: "../imgs/borda/chocolate.webp" }
+  { name: "Nenhuma", imagePath: "../imgs/borda/nenhuma.png" },
+  { name: "Mussarela", imagePath: "../imgs/borda/mussarela.webp" },
+  { name: "Cheddar", imagePath: "../imgs/borda/cheddar.webp" },
+  { name: "Catupiry", imagePath: "../imgs/borda/catupiry.webp" },
+  { name: "Creme Cheese", imagePath: "../imgs/borda/cremecheese.webp" },
+  { name: "Chocolate", imagePath: "../imgs/borda/chocolate.webp" }
 ];
 const TAMANHOS = ["Brotinho", "Média", "Grande"];
-
 
 /*************************************************
  * ESTADO GLOBAL
@@ -75,15 +71,10 @@ const deliveryState = {
   cep: "",
   referencia: "",
   bairro: "", 
-  
-  // CAMPOS PARA PAGAMENTO
   formaPagamento: "dinheiro", // dinheiro | debito | credito | pix
   valorPago: 0,
-  
-  // NOVO CAMPO
   observacao: "" 
 };
-
 
 /*************************************************
  * ELEMENTOS
@@ -122,48 +113,67 @@ const inputBairro = document.getElementById('bairro');
 
 // ELEMENTOS DE PAGAMENTO
 const selectFormaPagamento = document.getElementById('forma-pagamento-select');
-// Os fields 'dinheiro' e 'pix' permanecem para esconder/mostrar as opções
-const dinheiroFields = document.getElementById('dinheiro-fields');
+const dinheiroFields = document.getElementById('dinheiro-fields'); // pode não existir
 const pixFields = document.getElementById('pix-fields');
 const pixKeyEl = document.getElementById('pix-key');
+const btnCopyPixInline = document.getElementById('btn-copy-pix-inline');
 
 // NOVO: Campo de Observação
 const inputObservacao = document.getElementById('observacao'); 
 
-// Header / Nav
-const header = document.getElementById('site-header');
-const navLinks = document.querySelectorAll('.main-nav .nav-link');
-
+// Modal PIX (novo)
+const pixAlert = document.getElementById('pix-alert');
+const pixAlertKey = document.getElementById('pix-key-alert');
+const btnPixFechar = document.getElementById('btn-pix-fechar');
+const btnPixCancelar = document.getElementById('btn-pix-cancelar');
+const btnPixContinuar = document.getElementById('btn-pix-continuar');
+const btnCopyPix = document.getElementById('btn-copy-pix');
 
 /*************************************************
  * NAV & HEADER EFFECTS
  *************************************************/
 window.addEventListener('scroll', () => {
+  const header = document.getElementById('site-header');
   if (!header) return;
   header.classList.toggle('scrolled', window.scrollY > 6);
 });
-navLinks.forEach(a => {
+document.querySelectorAll('.main-nav .nav-link').forEach(a => {
   a.addEventListener('click', () => {
-    navLinks.forEach(n => n.classList.remove('active'));
+    document.querySelectorAll('.main-nav .nav-link').forEach(n => n.classList.remove('active'));
     a.classList.add('active');
     if (cartDrawer?.classList.contains('open')) closeCart();
     document.body.classList.remove('lock-scroll');
   });
 });
 
-
 /*************************************************
  * INICIALIZAÇÃO — CAMPOS DE ENTREGA E PAGAMENTO
  *************************************************/
 (function initDeliveryAndPaymentFields() {
-  
-  // Inicialização PIX (CNPJ)
+  // Inicialização PIX (inputs e botões de copiar)
   if (pixKeyEl) {
     pixKeyEl.value = PIX_KEY;
     pixKeyEl.parentElement.addEventListener('click', () => {
       navigator.clipboard.writeText(PIX_KEY);
-      alert("Chave PIX copiada para a área de transferência!");
+      // feedback visual suave; evita alert bloqueante
+      if (btnCopyPixInline) {
+        const old = btnCopyPixInline.textContent;
+        btnCopyPixInline.textContent = "Copiado!";
+        setTimeout(()=>btnCopyPixInline.textContent = old, 1400);
+      }
     });
+  }
+  if (btnCopyPixInline) {
+    btnCopyPixInline.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      navigator.clipboard.writeText(PIX_KEY);
+      const old = btnCopyPixInline.textContent;
+      btnCopyPixInline.textContent = "Copiado!";
+      setTimeout(()=>btnCopyPixInline.textContent = old, 1400);
+    });
+  }
+  if (pixAlertKey) {
+    pixAlertKey.value = PIX_KEY;
   }
 
   // Inicialização Entrega
@@ -179,7 +189,7 @@ navLinks.forEach(a => {
     });
   });
 
-  // Captura de dados de entrega e contato
+  // Captura de dados
   inputBairro?.addEventListener('input', e => deliveryState.bairro = e.target.value);
   inputRua?.addEventListener('input', e => deliveryState.rua = e.target.value);
   inputNumero?.addEventListener('input', e => deliveryState.numero = e.target.value);
@@ -188,30 +198,24 @@ navLinks.forEach(a => {
   inputReferencia?.addEventListener('input', e => deliveryState.referencia = e.target.value);
   inputNome?.addEventListener('input', e => deliveryState.nome = e.target.value);
   inputTelefone?.addEventListener('input', e => deliveryState.telefone = e.target.value);
-  
-  // NOVO: Captura do campo de observação
   inputObservacao?.addEventListener('input', e => deliveryState.observacao = e.target.value);
   
-  // Inicialização Pagamento (Lógica para o Select)
+  // Pagamento (Select)
   if (selectFormaPagamento) {
-      selectFormaPagamento.addEventListener('change', (e) => {
-          deliveryState.formaPagamento = e.target.value;
-          dinheiroFields.classList.add('hidden');
-          pixFields.classList.add('hidden');
-          
-          if (deliveryState.formaPagamento === "dinheiro") {
-              dinheiroFields.classList.remove('hidden');
-          } else if (deliveryState.formaPagamento === "pix") {
-              pixFields.classList.remove('hidden');
-          }
-          renderCart();
-      });
+    selectFormaPagamento.addEventListener('change', (e) => {
+      deliveryState.formaPagamento = e.target.value;
+      // mostra/esconde blocos
+      if (typeof dinheiroFields !== "undefined" && dinheiroFields) dinheiroFields.classList.add('hidden');
+      pixFields.classList.add('hidden');
+      if (deliveryState.formaPagamento === "dinheiro") {
+        if (typeof dinheiroFields !== "undefined" && dinheiroFields) dinheiroFields.classList.remove('hidden');
+      } else if (deliveryState.formaPagamento === "pix") {
+        pixFields.classList.remove('hidden');
+      }
+      renderCart();
+    });
   }
-  
-  // LÓGICA DE TROCO REMOVIDA
-  
 })();
-
 
 /*************************************************
  * UI DO MODAL — MONTE SUA PIZZA
@@ -280,7 +284,6 @@ function updateHintPrecosFamilia() {
   hintPrecosFamilia.textContent = partes.join(" • ");
 }
 
-
 /*************************************************
  * LÓGICA DE PIZZA
  *************************************************/
@@ -288,36 +291,29 @@ function getSelectedTamanho() {
   const r = pizzaForm.querySelector('input[name="tamanho"]:checked');
   return r ? r.value : null;
 }
-
 function limitPizzaFlavors() {
   const selected = pizzaForm.querySelectorAll('input[name="sabor"]:checked');
-  if (selected.length > 2) {
-    // Desmarca o último sabor escolhido
-    selected[selected.length - 1].checked = false;
-  }
+  if (selected.length > 2) selected[selected.length - 1].checked = false;
 }
-
 function handlePizzaChange() {
   limitPizzaFlavors();
   toggleBordaByTamanho();
   updateHintPrecosFamilia();
   calculatePizzaPrice();
 }
-
 function toggleBordaByTamanho() {
   const t = getSelectedTamanho();
   const isBrotinho = t === "Brotinho";
   pizzaForm.querySelectorAll('input[name="borda"]').forEach((r) => {
     if (r.value === "Nenhuma") {
       r.disabled = false;
-      if (isBrotinho) r.checked = true; // Força "Nenhuma" se for Brotinho
+      if (isBrotinho) r.checked = true;
     } else {
-      r.disabled = isBrotinho; // Desabilita outras bordas para Brotinho
+      r.disabled = isBrotinho;
       if (isBrotinho) r.checked = false;
     }
   });
 }
-
 function calculatePizzaPrice() {
   const selectedTamanho = pizzaForm.querySelector('input[name="tamanho"]:checked');
   const selectedSabores = pizzaForm.querySelectorAll('input[name="sabor"]:checked');
@@ -368,39 +364,22 @@ function calculatePizzaPrice() {
   };
 }
 
-
 /*************************************************
  * CARRINHO
  *************************************************/
-function saveCart() {
-  localStorage.setItem("cart_fornoalenha", JSON.stringify(cart));
-}
-function formatBRL(v) {
-  return `R$ ${v.toFixed(2).replace('.', ',')}`;
-}
+function saveCart() { localStorage.setItem("cart_fornoalenha", JSON.stringify(cart)); }
+function formatBRL(v) { return `R$ ${v.toFixed(2).replace('.', ',')}`; }
 function addToCart(name, price, qty = 1, meta = {}) {
   const key = JSON.stringify({ name, price, meta });
   const existing = cart.find(i => JSON.stringify({ name: i.name, price: i.price, meta: i.meta }) === key);
-
-  if (existing) existing.qty += qty;
-  else cart.push({ name, price, qty, meta });
-
-  renderCart();
-  openCart();
+  if (existing) existing.qty += qty; else cart.push({ name, price, qty, meta });
+  renderCart(); openCart();
 }
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  renderCart();
-}
-function changeQty(index, delta) {
-  cart[index].qty += delta;
-  if (cart[index].qty <= 0) cart.splice(index, 1);
-  renderCart();
-}
+function removeFromCart(index) { cart.splice(index, 1); renderCart(); }
+function changeQty(index, delta) { cart[index].qty += delta; if (cart[index].qty <= 0) cart.splice(index, 1); renderCart(); }
 
 function renderCart() {
   if (!cartItemsEl) return;
-
   cartItemsEl.innerHTML = '';
   let subtotal = 0; 
 
@@ -411,7 +390,6 @@ function renderCart() {
     const metaLines = [];
     if (item.meta?.tamanho) metaLines.push(`Tamanho: ${item.meta.tamanho}`);
     if (item.meta?.borda && item.meta.borda !== "Nenhuma") metaLines.push(`Borda: ${item.meta.borda}`);
-    // Exibe apenas os dois primeiros sabores na linha meta do carrinho para manter compacto
     if (item.meta?.sabores?.length) metaLines.push(`Sabores: ${item.meta.sabores.slice(0, 2).join(' / ')}${item.meta.sabores.length > 2 ? '...' : ''}`);
 
     const metaText = metaLines.join(" • ");
@@ -436,7 +414,7 @@ function renderCart() {
     cartItemsEl.appendChild(el);
   });
 
-  const total = subtotal; // Não há taxa de entrega implementada aqui.
+  const total = subtotal;
 
   cartSubtotal.textContent = formatBRL(subtotal);
   cartTotal.textContent    = formatBRL(total);
@@ -445,9 +423,8 @@ function renderCart() {
   saveCart();
 }
 
-
 /*************************************************
- * FUNÇÃO DE MENSAGEM WHATSAPP
+ * WHATSAPP — MENSAGEM
  *************************************************/
 function montarMensagemWhatsApp() {
   const linhas = [];
@@ -471,7 +448,7 @@ function montarMensagemWhatsApp() {
   linhas.push(`*TOTAL: ${formatBRL(total)}*`);
   linhas.push("");
   
-  // Detalhes da Forma de Pagamento
+  // Forma de pagamento
   linhas.push("*FORMA DE PAGAMENTO:*");
   if (deliveryState.formaPagamento === "dinheiro") {
     linhas.push(`• Dinheiro (Pagamento em mãos)`); 
@@ -485,9 +462,7 @@ function montarMensagemWhatsApp() {
   }
   linhas.push("");
 
-
   linhas.push(`*ENTREGA:* ${deliveryState.modo === "delivery" ? "Delivery" : "Retirada no balcão"}`);
-
   if (deliveryState.modo === "delivery") {
     linhas.push("*DADOS DA ENTREGA:*");
     const endereco = [
@@ -498,7 +473,6 @@ function montarMensagemWhatsApp() {
       deliveryState.cep ? `CEP: ${deliveryState.cep}` : null,
       deliveryState.referencia ? `Referência: ${deliveryState.referencia}` : null
     ].filter(Boolean).join("\n• ");
-
     linhas.push(endereco ? `• ${endereco}` : "• Endereço: —");
   }
 
@@ -507,7 +481,6 @@ function montarMensagemWhatsApp() {
   linhas.push(`• Nome: ${deliveryState.nome || "—"}`);
   linhas.push(`• Telefone: ${deliveryState.telefone || "—"}`);
   
-  // NOVO: Adiciona Observação
   if (deliveryState.observacao) {
     linhas.push("");
     linhas.push(`*OBSERVAÇÃO:* ${deliveryState.observacao}`);
@@ -523,106 +496,110 @@ function validarDadosAntesDeEnviar() {
   }
   if (deliveryState.modo === "delivery") {
     if (!deliveryState.rua || !deliveryState.numero || !deliveryState.bairro) { 
-        alert('Informe o Bairro, Rua/Avenida e número para a entrega.'); return false; 
+      alert('Informe o Bairro, Rua/Avenida e número para a entrega.'); return false; 
     }
   }
-  
-  // LÓGICA DE VALIDAÇÃO DE TROCO REMOVIDA
-  
-  // Confirmação para PIX
-  if (deliveryState.formaPagamento === "pix") {
-      if (!confirm("Você selecionou PIX. Certifique-se de que o pagamento será feito ANTES de enviar o pedido. Deseja continuar?")) {
-          return false;
-      }
-  }
-  
   return true;
 }
 
-
 /*************************************************
- * FUNÇÕES DE EVENTOS GERAIS
+ * AJUDANTES MODAL PIX
  *************************************************/
-function openCart(){
-  cartDrawer.classList.add('open');
+function openPixAlert(){
+  pixAlert.classList.add('open');
+  pixAlert.setAttribute('aria-hidden','false');
   document.body.classList.add('lock-scroll');
 }
-function closeCart(){
-  cartDrawer.classList.remove('open');
+function closePixAlert(){
+  pixAlert.classList.remove('open');
+  pixAlert.setAttribute('aria-hidden','true');
   document.body.classList.remove('lock-scroll');
 }
 
+/*************************************************
+ * EVENTOS GERAIS
+ *************************************************/
+function openCart(){ cartDrawer.classList.add('open'); document.body.classList.add('lock-scroll'); }
+function closeCart(){ cartDrawer.classList.remove('open'); document.body.classList.remove('lock-scroll'); }
+
 function initAppListeners() {
+  openCartBtn?.addEventListener('click', openCart);
+  closeCartBtn?.addEventListener('click', closeCart);
 
-    openCartBtn?.addEventListener('click', openCart);
-    closeCartBtn?.addEventListener('click', closeCart);
+  btnContinuar?.addEventListener('click', () => {
+    closeCart();
+    document.querySelector('.container')?.scrollIntoView({behavior:'smooth', block:'start'}); 
+  });
 
-    btnContinuar?.addEventListener('click', () => {
-      closeCart();
-      document.querySelector('.container')?.scrollIntoView({behavior:'smooth', block:'start'}); 
-    });
+  // FINALIZAR: agora com fluxo especial para PIX
+  btnFinalizar?.addEventListener('click', () => {
+    if (!validarDadosAntesDeEnviar()) return;
 
-    // LÓGICA DE ENVIO DO PEDIDO PARA WHATSAPP VIA MENSAGEM DE TEXTO (CORRETO)
-    btnFinalizar?.addEventListener('click', () => {
-      if (!validarDadosAntesDeEnviar()) return;
-      
-      // 1. Geração da mensagem de texto completa
-      const texto = montarMensagemWhatsApp();
-      
-      // 2. Monta a URL do WhatsApp com a mensagem
-      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}`;
-      
-      // 3. Abre o WhatsApp no navegador
-      window.open(url, '_blank');
-      
-      // Opcional: Limpar o carrinho após envio.
-      /*
-      cart = [];
-      saveCart();
-      renderCart();
-      */
-    });
+    // Se for PIX, abre modal com chave e botão copiar
+    if (deliveryState.formaPagamento === "pix") {
+      openPixAlert();
+      return;
+    }
 
-    /* Modal Monte sua Pizza */
-    btnMontePizza?.addEventListener('click', () => {
-      pizzaModal.classList.add('open');
-      document.body.classList.add('lock-scroll');
-      populatePizzaOptions();
-    });
-    closeModalBtn?.addEventListener('click', () => {
+    // Demais formas: envia direto
+    const texto = montarMensagemWhatsApp();
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}`;
+    window.open(url, '_blank');
+  });
+
+  // PIX Modal — botões
+  btnPixFechar?.addEventListener('click', closePixAlert);
+  btnPixCancelar?.addEventListener('click', closePixAlert);
+
+  btnPixContinuar?.addEventListener('click', () => {
+    const texto = montarMensagemWhatsApp();
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}`;
+    window.open(url, '_blank');
+    closePixAlert();
+  });
+
+  btnCopyPix?.addEventListener('click', () => {
+    navigator.clipboard.writeText(PIX_KEY);
+    const old = btnCopyPix.textContent;
+    btnCopyPix.textContent = "Copiado!";
+    setTimeout(()=>btnCopyPix.textContent = old, 1400);
+  });
+
+  /* Modal Monte sua Pizza */
+  btnMontePizza?.addEventListener('click', () => {
+    pizzaModal.classList.add('open');
+    document.body.classList.add('lock-scroll');
+    populatePizzaOptions();
+  });
+  closeModalBtn?.addEventListener('click', () => {
+    pizzaModal.classList.remove('open');
+    document.body.classList.remove('lock-scroll');
+  });
+  pizzaModal?.addEventListener('click', (e) => {
+    if (e.target === pizzaModal){
       pizzaModal.classList.remove('open');
       document.body.classList.remove('lock-scroll');
-    });
-    pizzaModal?.addEventListener('click', (e) => {
-      if (e.target === pizzaModal){
-        pizzaModal.classList.remove('open');
-        document.body.classList.remove('lock-scroll');
-      }
-    });
-    // Adiciona o listener do botão "Voltar" do modal
-    btnVoltarPizza?.addEventListener('click', () => {
-        pizzaModal.classList.remove('open');
-        document.body.classList.remove('lock-scroll');
-    });
+    }
+  });
+  btnVoltarPizza?.addEventListener('click', () => {
+    pizzaModal.classList.remove('open');
+    document.body.classList.remove('lock-scroll');
+  });
 
-    /* Submit da pizza */
-    pizzaForm?.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const { precoFinal, nomePizza, tamanho, borda, sabores } = calculatePizzaPrice();
-      if (precoFinal <= 0) { alert('Escolha pelo menos 1 sabor e um tamanho válido.'); return; }
-      const meta = { tamanho, borda, sabores };
-      addToCart(`${nomePizza} (${tamanho})`, precoFinal, 1, meta);
-      pizzaModal.classList.remove('open');
-      document.body.classList.remove('lock-scroll');
-    });
+  /* Submit da pizza */
+  pizzaForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const { precoFinal, nomePizza, tamanho, borda, sabores } = calculatePizzaPrice();
+    if (precoFinal <= 0) { alert('Escolha pelo menos 1 sabor e um tamanho válido.'); return; }
+    const meta = { tamanho, borda, sabores };
+    addToCart(`${nomePizza} (${tamanho})`, precoFinal, 1, meta);
+    pizzaModal.classList.remove('open');
+    document.body.classList.remove('lock-scroll');
+  });
 }
-
 
 /*************************************************
  * INICIALIZAÇÃO DA APLICAÇÃO
  *************************************************/
-// Carregar carrinho salvo ao abrir a página
 renderCart();
-
-// Inicia todos os listeners de botões APÓS renderizar o carrinho
 initAppListeners();

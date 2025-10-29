@@ -147,7 +147,7 @@
         </div>
       </div>
 
-      <h2 style="margin:18px 0 10px">🍙 Temakis <small style="color:#8b8d94"></small></h2>
+      <h2 style="margin:18px 0 10px">🐙 Temakis <small style="color:#8b8d94"></small></h2>
       <div class="cards">
         <div class="card">
           <img class="card-img" src="../imgs/tsalmao.webp" alt="Produto" loading="lazy">
@@ -291,8 +291,6 @@
     </section>
   </main>
 
-  
-
   <aside class="cart" id="cart">
     <div class="cart-header">
       <h3>Seu Carrinho</h3>
@@ -365,23 +363,30 @@
         </select>
       </div>
 
+      <!-- Observações com visual padronizado -->
       <div class="section-box" id="observacao-box">
         <h3>📝 Observações</h3>
         <div class="field">
+          <label for="observacao" class="sr-only">Observações</label>
           <textarea id="observacao" placeholder="Ex: Sem cebola, pimenta à parte, atenção ao interfone, etc." rows="3"></textarea>
+          <small class="hint">Use este campo para qualquer instrução especial do pedido.</small>
         </div>
       </div>
       
+      <!-- Campos PIX nativos do carrinho (aparecem quando a opção PIX é selecionada) -->
       <div id="pix-fields" class="hidden">
+        <h4 style="margin: 0 0 8px 0; color: var(--acc);">💳 Pagamento via PIX</h4>
         <div class="field">
-          <small class="hint">Copie e cole a chave abaixo no seu aplicativo bancário. Envie o comprovante pelo WhatsApp.</small>
+          <small class="hint">⚠️ Copie a chave abaixo e faça o pagamento antes de finalizar o pedido. Envie o comprovante pelo WhatsApp.</small>
         </div>
-        <div class="field">
+        <div class="field copy-row">
           <label for="pix-key">Chave PIX (Clique para copiar)</label>
-          <input type="text" id="pix-key" readonly style="cursor: pointer; background: #333; color: #ffb10a;" />
+          <div class="copy-inline">
+            <input type="text" id="pix-key" readonly />
+            <button type="button" class="btn btn-secondary" id="btn-copy-pix-inline">Copiar</button>
+          </div>
         </div>
       </div>
-      
       
     </div>
 
@@ -398,6 +403,30 @@
       <p class="pix-tip">💳 Aceitamos Pix, Débito e Crédito.</p>
     </div>
   </aside>
+
+  <!-- Modal PIX (novo): substitui o confirm() e mostra a chave com botão de copiar -->
+  <div id="pix-alert" class="modal" aria-hidden="true">
+    <div class="modal-content small">
+      <div class="modal-header">
+        <h3>Pagamento via PIX</h3>
+        <button class="icon-btn" id="btn-pix-fechar" title="Fechar">✖</button>
+      </div>
+      <div style="padding:12px 14px;">
+        <p class="hint" style="margin-top:0">Copie a chave abaixo, faça o pagamento e clique em <b>Finalizar no WhatsApp</b> para enviar o pedido com o comprovante.</p>
+        <div class="field copy-row">
+          <label for="pix-key-alert">Chave PIX</label>
+          <div class="copy-inline">
+            <input type="text" id="pix-key-alert" readonly />
+            <button type="button" class="btn btn-secondary" id="btn-copy-pix">Copiar</button>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn" id="btn-pix-cancelar">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="btn-pix-continuar">Finalizar no WhatsApp</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div id="pizza-modal" class="modal">
     <div class="modal-content">
@@ -443,8 +472,7 @@
     <small>&copy; 2025 - <a href="https://portfolioraposoofc.vercel.app" style="text-decoration: none; color: #fff;">Rapôso Web Dev</a> | Todos os direitos reservados.</small>
   </footer>
 
-  <div id="comanda-digital">
-  </div>
+  <div id="comanda-digital"></div>
   <script src="../js/script.js"></script>
 </body>
 </html>
