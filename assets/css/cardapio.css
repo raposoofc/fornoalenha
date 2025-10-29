@@ -148,7 +148,7 @@ section .tabelas { scroll-margin-top: 76px; }
 }
 
 /* Modal (já existente) */
-.modal { position:fixed; inset:0; background:rgba(0,0,0,.55); display:none; align-items:center; justify-content:center; padding:16px; z-index:40; }
+.modal { position:fixed; inset:0; background:rgba(0,0,0,.55); display:none; align-items:center; justify-content:center; padding:16px; z-index:500; }
 .modal.open { display:flex; }
 .modal-content{ background:#0e1016; border:1px solid var(--line); border-radius:16px; max-width:760px; width:100%; padding:0; max-height:90dvh; overflow:auto; -webkit-overflow-scrolling:touch; }
 .modal-content.small{ max-width:480px; }

@@ -506,6 +506,7 @@ function validarDadosAntesDeEnviar() {
  * AJUDANTES MODAL PIX
  *************************************************/
 function openPixAlert(){
+  try { closeCart(); } catch(e){}
   pixAlert.classList.add('open');
   pixAlert.setAttribute('aria-hidden','false');
   document.body.classList.add('lock-scroll');
