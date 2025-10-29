@@ -106,7 +106,7 @@ const saborOptionsEl   = document.getElementById('sabor-options');
 const bordaOptionsEl   = document.getElementById('borda-options');
 const hintPrecosFamilia = document.getElementById('hint-precos-familia');
 const btnVoltarPizza = document.getElementById('btn-voltar-pizza'); 
-const comandaDigitalEl = document.getElementById('comanda-digital'); 
+// REMOVIDO: const comandaDigitalEl = document.getElementById('comanda-digital'); 
 
 // Campos de entrega/contato
 const radiosModoEntrega = document.querySelectorAll('input[name="modo-entrega"]');
@@ -480,109 +480,13 @@ function renderCart() {
 
 
 /*************************************************
- * FUNÇÃO DE RENDERIZAÇÃO DA COMANDA DIGITAL
+ * FUNÇÃO DE MENSAGEM WHATSAPP
  *************************************************/
-function renderComandaDigital() {
-    // NOTE: Caminho da logo deve ser relativo à base do projeto ou absoluto se o cardapio.html estiver em assets/html/
-    const LOGO_PATH = '../imgs/fornoalenha.webp'; 
-    
-    const cartItemsHtml = cart.map(i => {
-        const meta = [];
-        if (i.meta?.tamanho) meta.push(`T: ${i.meta.tamanho}`);
-        if (i.meta?.borda && i.meta?.borda !== "Nenhuma") meta.push(`Borda: ${i.meta.borda}`);
-        
-        // Exibe todos os sabores na comanda
-        const saboresDisplay = i.meta?.sabores?.join(' / ');
-        if (saboresDisplay) meta.push(`Sabores: ${saboresDisplay}`);
-
-        const metaText = meta.join(' | ');
-        const linePrice = formatBRL(i.price * i.qty);
-
-        return `
-            <div class="item-comanda">
-                <span class="qty">${i.qty}x</span>
-                <span class="name">${i.name}</span>
-                <span class="price">${linePrice}</span>
-                ${metaText ? `<span class="meta-comanda">${metaText}</span>` : ''}
-            </div>
-        `;
-    }).join('');
-
-    const subtotal = cart.reduce((s,i)=>s+i.price*i.qty,0);
-    const total = subtotal;
-    // ID de pedido simples para referência
-    const randomOrderId = Math.floor(Math.random() * 9000) + 1000; 
-
-
-    let pagamentoInfo = '';
-    if (deliveryState.formaPagamento === "dinheiro") {
-        pagamentoInfo = `Dinheiro`;
-        if (deliveryState.precisaTroco) {
-            const troco = deliveryState.trocoPara - total;
-            pagamentoInfo += ` | Troco para: ${formatBRL(deliveryState.trocoPara)} (Devolver ${formatBRL(troco)})`;
-        }
-    } else if (deliveryState.formaPagamento === "debito") {
-        pagamentoInfo = `Cartão de Débito (Máquina)`;
-    } else if (deliveryState.formaPagamento === "credito") {
-        pagamentoInfo = `Cartão de Crédito (Máquina)`;
-    } else if (deliveryState.formaPagamento === "pix") {
-        pagamentoInfo = `PIX (Comprovante será enviado)`;
-    }
-
-    let enderecoInfo = '';
-    if (deliveryState.modo === "delivery") {
-        enderecoInfo = `
-            <p><strong>Entrega:</strong> Delivery</p>
-            <p><strong>End.:</strong> ${deliveryState.rua}, ${deliveryState.numero} - ${deliveryState.bairro}</p>
-            ${deliveryState.complemento ? `<p><strong>Comp.:</strong> ${deliveryState.complemento}</p>` : ''}
-            ${deliveryState.referencia ? `<p><strong>Ref.:</strong> ${deliveryState.referencia}</p>` : ''}
-            ${deliveryState.cep ? `<p><strong>CEP:</strong> ${deliveryState.cep}</p>` : ''}
-        `;
-    } else {
-        enderecoInfo = `<p><strong>Entrega:</strong> Retirada no Balcão</p>`;
-    }
-
-
-    const comandaHtml = `
-        <div class="header-comanda">
-            <img src="${LOGO_PATH}" alt="Logo Forno à Lenha" class="comanda-logo"> 
-            <h3>FORNO À LENHA PIZZARIA</h3>
-            <p>Pedido #${randomOrderId} | ${new Date().toLocaleTimeString('pt-BR')}</p>
-        </div>
-
-        <div>${cartItemsHtml}</div>
-
-        <div class="footer-comanda">
-            <p>Subtotal: ${formatBRL(subtotal)}</p>
-            <p>Taxa de Entrega: ${formatBRL(0)}</p>
-            <p class="total-comanda">Total: ${formatBRL(total)}</p>
-            <p style="margin-top:10px;"><strong>Pagamento:</strong> ${pagamentoInfo}</p>
-        </div>
-
-        <div class="dados-cliente">
-            <p><strong>Nome:</strong> ${deliveryState.nome || "Não informado"}</p>
-            <p><strong>Tel.:</strong> ${deliveryState.telefone || "Não informado"}</p>
-            ${enderecoInfo}
-        </div>
-        
-        <p style="text-align:center; font-size:0.8rem; margin-top:20px;">Obrigado pelo seu pedido!</p>
-    `;
-
-    if (comandaDigitalEl) {
-        comandaDigitalEl.innerHTML = comandaHtml;
-    }
-}
-
-
-/*************************************************
- * FUNÇÃO DE MENSAGEM WHATSAPP (Apenas fallback)
- *************************************************/
-// Função mantida apenas para fallback em caso de erro na geração da imagem
 function montarMensagemWhatsApp() {
   const linhas = [];
-  linhas.push("*NOVO PEDIDO — Forno a Lenha*");
+  linhas.push("🍕 *NOVO PEDIDO — Forno a Lenha* 🍕");
   linhas.push("");
-  linhas.push("*Itens:*");
+  linhas.push("*ITENS DO PEDIDO:*");
 
   cart.forEach(i => {
     const meta = [];
@@ -596,12 +500,12 @@ function montarMensagemWhatsApp() {
   const total = subtotal;
 
   linhas.push("");
-  linhas.push(`Subtotal: *${formatBRL(subtotal)}*`);
-  linhas.push(`Total: *${formatBRL(total)}*`);
+  linhas.push(`*SUBTOTAL: ${formatBRL(subtotal)}*`);
+  linhas.push(`*TOTAL: ${formatBRL(total)}*`);
   linhas.push("");
   
   // Detalhes da Forma de Pagamento
-  linhas.push("*Forma de Pagamento:*");
+  linhas.push("*FORMA DE PAGAMENTO:*");
   if (deliveryState.formaPagamento === "dinheiro") {
     linhas.push(`• Dinheiro`);
     if (deliveryState.precisaTroco) {
@@ -622,9 +526,10 @@ function montarMensagemWhatsApp() {
   linhas.push("");
 
 
-  linhas.push(`*Entrega:* ${deliveryState.modo === "delivery" ? "Delivery" : "Retirada no balcão"}`);
+  linhas.push(`*ENTREGA:* ${deliveryState.modo === "delivery" ? "Delivery" : "Retirada no balcão"}`);
 
   if (deliveryState.modo === "delivery") {
+    linhas.push("*DADOS DA ENTREGA:*");
     const endereco = [
       deliveryState.rua ? `Rua/Avenida: ${deliveryState.rua}` : null,
       deliveryState.numero ? `Nº: ${deliveryState.numero}` : null,
@@ -632,14 +537,15 @@ function montarMensagemWhatsApp() {
       deliveryState.bairro ? `Bairro: ${deliveryState.bairro}` : null,
       deliveryState.cep ? `CEP: ${deliveryState.cep}` : null,
       deliveryState.referencia ? `Referência: ${deliveryState.referencia}` : null
-    ].filter(Boolean).join(" | ");
+    ].filter(Boolean).join("\n• ");
 
-    linhas.push(endereco ? `Endereço: ${endereco}` : "Endereço: —");
+    linhas.push(endereco ? `• ${endereco}` : "• Endereço: —");
   }
 
   linhas.push("");
-  linhas.push(`Nome: ${deliveryState.nome || "—"}`);
-  linhas.push(`Telefone: ${deliveryState.telefone || "—"}`);
+  linhas.push("*DADOS DE CONTATO:*");
+  linhas.push(`• Nome: ${deliveryState.nome || "—"}`);
+  linhas.push(`• Telefone: ${deliveryState.telefone || "—"}`);
 
   return linhas.join("\n");
 }
@@ -697,78 +603,26 @@ function initAppListeners() {
       document.querySelector('.container')?.scrollIntoView({behavior:'smooth', block:'start'}); 
     });
 
-    // LÓGICA DE GERAÇÃO DE IMAGEM E REDIRECIONAMENTO WHATSAPP
+    // LÓGICA DE ENVIO DO PEDIDO PARA WHATSAPP VIA MENSAGEM DE TEXTO (REVISADO)
     btnFinalizar?.addEventListener('click', () => {
       if (!validarDadosAntesDeEnviar()) return;
       
-      // 1. Renderiza o HTML da comanda no elemento oculto
-      renderComandaDigital();
+      // 1. Geração da mensagem de texto completa
+      const texto = montarMensagemWhatsApp();
       
-      // 2. Torna a comanda visível temporariamente
-      comandaDigitalEl?.classList.add('comanda-active'); 
-
-      // 3. Usa html2canvas para gerar a imagem
-      // NOTE: A biblioteca html2canvas deve estar inclusa no <head> do cardapio.html
-      // Ex: <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-      if (typeof html2canvas === 'undefined') {
-          console.error("html2canvas não está carregado. Enviando por mensagem de texto.");
-          alert('Ocorreu um erro ao gerar a comanda digital. O pedido será enviado por mensagem de texto.');
-          comandaDigitalEl?.classList.remove('comanda-active'); 
-          // Fallback: Se der erro, usa a mensagem de texto completa como backup
-          const texto = montarMensagemWhatsApp();
-          const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}`;
-          window.open(url, '_blank');
-          return;
-      }
-
-      html2canvas(comandaDigitalEl, { 
-          backgroundColor: '#ffffff',
-          scale: 3, // Alta resolução
-          useCORS: true
-      }).then(canvas => {
-          
-          // 4. Oculta o elemento HTML da comanda novamente
-          comandaDigitalEl?.classList.remove('comanda-active'); 
-          
-          // 5. Converte o Canvas para Data URL (PNG)
-          const imageURL = canvas.toDataURL('image/png');
-          
-          // 6. Oferece ao usuário o download da imagem da comanda
-          const link = document.createElement('a');
-          link.href = imageURL;
-          link.download = `Comanda_FornoALenha_${new Date().getTime()}.png`;
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          
-          // 7. CRIA MENSAGEM CURTA PARA WHATSAPP
-          const totalText = cartTotal.textContent;
-          const mensagemCurta = 
-    `🍕 *NOVO PEDIDO - Forno à Lenha*
- 
- Olá, segue a imagem da comanda digital em anexo (PNG) para finalizar meu pedido!
- 
- *Total:* ${totalText}
- *Nome:* ${deliveryState.nome || "Não informado"}
- *Telefone:* ${deliveryState.telefone || "Não informado"}`;
-
-          const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensagemCurta)}`;
-          
-          // 8. Abre o WhatsApp após um pequeno atraso para o download iniciar
-          setTimeout(() => {
-              window.open(url, '_blank');
-          }, 500); 
-          
-      }).catch(error => {
-          console.error('Erro ao gerar a imagem da comanda:', error);
-          alert('Não foi possível gerar a comanda digital. Enviando pedido por mensagem de texto.');
-          
-          comandaDigitalEl?.classList.remove('comanda-active'); 
-          // Fallback: Se der erro, usa a mensagem de texto completa como backup
-          const texto = montarMensagemWhatsApp();
-          const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}`;
-          window.open(url, '_blank');
-      });
+      // 2. Monta a URL do WhatsApp com a mensagem
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}`;
+      
+      // 3. Abre o WhatsApp no navegador
+      window.open(url, '_blank');
+      
+      // NOTA: Recomenda-se adicionar aqui a lógica para limpar o carrinho 
+      // após o envio bem-sucedido para o WhatsApp (opcional, dependendo da UX desejada).
+      /*
+      cart = [];
+      saveCart();
+      renderCart();
+      */
     });
 
     /* Modal Monte sua Pizza */
