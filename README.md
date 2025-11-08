@@ -1,8 +1,5 @@
 # 🚀 Forno à Lenha Pizzaria: Cardápio Digital - Otimização de Delivery 🍕
 
-!(https://img.shields.io/badge/Status-Concluído-4CAF50?style=for-the-badge)
-!(https://img.shields.io/badge/Tecnologias-HTML%20|%20CSS%20|%20JS-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-
 ---
 
 ## 🎯 O PROBLEMA DE NEGÓCIO: Aceleração e Redução de Erros no Pedido
@@ -49,7 +46,6 @@ A arquitetura foi escolhida para garantir **máxima performance**, **baixo custo
 </p>
 
 ---
-
 ## ⚙️ GUIA DE EXECUÇÃO: Como Rodar e Acessar
 
 O projeto é estático e pode ser visualizado em qualquer navegador.
@@ -73,6 +69,19 @@ Para executar e inspecionar o código-fonte:
     ```
 3.  **Execute:**
     Abra o arquivo `index.html` diretamente em seu navegador.
+
+---
+## 🔥 GitHub Streak
+
+### 📊 Estatísticas do GitHub
+
+<div align="center" style="display: flex; gap: 40px;">
+
+  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=raposoofc&show_icons=true&theme=radical" alt="Estatísticas do GitHub"/>
+
+  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=raposoofc&layout=compact&theme=radical" alt="Linguagens mais usadas"/>
+
+</div>
 
 ---
 
