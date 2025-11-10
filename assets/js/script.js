@@ -1,5 +1,5 @@
 /*************************************************
- * CONFIGURAÇÃO — AJUSTE PARA SEU NEGÓCIO
+ * CONFIGURAÇÃO – AJUSTE PARA SEU NEGÓCIO
  *************************************************/
 
 const WHATSAPP_NUMBER = "5582991201916";
@@ -143,7 +143,7 @@ document.querySelectorAll('.main-nav .nav-link').forEach(a => {
 });
 
 /*************************************************
- * INICIALIZAÇÃO — CAMPOS DE ENTREGA E PAGAMENTO
+ * INICIALIZAÇÃO – CAMPOS DE ENTREGA E PAGAMENTO
  *************************************************/
 (function initDeliveryAndPaymentFields() {
   if (pixKeyEl) {
@@ -208,7 +208,7 @@ document.querySelectorAll('.main-nav .nav-link').forEach(a => {
 })();
 
 /*************************************************
- * UI DO MODAL — MONTE SUA PIZZA
+ * UI DO MODAL – MONTE SUA PIZZA
  *************************************************/
 function renderGrupoSabores(titulo, lista, familia) {
   const itens = lista.map((sabor, i) => `
@@ -440,7 +440,7 @@ function renderCart() {
 }
 
 /*************************************************
- * WHATSAPP — MENSAGEM (ajustada p/ não somar borda ao preço da pizza)
+ * WHATSAPP – MENSAGEM (ajustada p/ não somar borda ao preço da pizza)
  *************************************************/
 function getFamiliaDoSabor(nome) {
   for (const fam of Object.keys(SABORES)) {
@@ -463,12 +463,10 @@ function getPrecoBasePizza(tamanho, sabores) {
 const API_BASE_ORDERS = 'http://localhost:3333';
 
 function buildOrderPayload() {
-  // Usa os estados que você já tem: `cart` e `deliveryState`
   const items = cart.map(i => ({
     name: i.name,
     price: Number(i.price),
     qty: Number(i.qty),
-    // se quiser enviar metadados (ex.: tamanho/borda/sabores), mantém:
     meta: i.meta || null
   }));
 
@@ -509,14 +507,14 @@ async function postOrder(payload) {
     const msg = (data && (data.errors?.join('\n') || data.error)) || `HTTP ${res.status}`;
     throw new Error(msg);
   }
-  return data; // { ok: true, orderId, message }
+  return data;
 }
 
 function montarMensagemWhatsApp() {
   const linhas = [];
   const SEP = "====================================";
 
-  linhas.push("🍕 NOVO PEDIDO — Forno a Lenha 🍕");
+  linhas.push("🍕 NOVO PEDIDO – Forno a Lenha 🍕");
   linhas.push("");
   linhas.push(SEP);
   linhas.push("");
@@ -681,9 +679,9 @@ function initAppListeners() {
       const resp = await postOrder(payload);
       console.log('Pedido registrado no back:', resp);
       if (resp?.ok && resp?.orderId) {
-      setLastOrderId(resp.orderId);
-      showOrderBanner(resp.orderId);
-  }
+        setLastOrderId(resp.orderId);
+        showOrderBanner(resp.orderId);
+      }
     } catch (err) {
       console.warn('Falha ao registrar pedido no back:', err?.message || err);
     }
@@ -707,9 +705,9 @@ function initAppListeners() {
       const resp = await postOrder(payload);
       console.log('Pedido (PIX) registrado no back:', resp);
       if (resp?.ok && resp?.orderId) {
-      setLastOrderId(resp.orderId);
-      showOrderBanner(resp.orderId);
-  }
+        setLastOrderId(resp.orderId);
+        showOrderBanner(resp.orderId);
+      }
     } catch (err) {
       console.warn('Falha ao registrar pedido (PIX) no back:', err?.message || err);
     }
@@ -771,10 +769,6 @@ function getLastOrderId() {
   try { return localStorage.getItem('forno_last_order_id'); } catch { return null; }
 }
 
-/**
- * Cria/atualiza um banner discreto no topo da tela.
- * Não requer mudanças no HTML: é injetado dinamicamente.
- */
 function showOrderBanner(orderId) {
   let banner = document.getElementById('order-protocol-banner');
   if (!banner) {
@@ -789,14 +783,12 @@ function showOrderBanner(orderId) {
       transition: opacity .25s ease, transform .25s ease;
     `;
     document.body.appendChild(banner);
-    // pequena animação de entrada
     requestAnimationFrame(() => {
       banner.style.opacity = '1';
       banner.style.transform = 'translateX(-50%) translateY(0)';
     });
   }
   banner.textContent = `✅ Protocolo do pedido: #${orderId}`;
-  // some sozinho depois de 6s
   clearTimeout(banner._hideTimer);
   banner._hideTimer = setTimeout(() => {
     banner.style.opacity = '0';
@@ -835,7 +827,6 @@ initAppListeners();
     const imagem = String(item?.imagem ?? '');
     const desc = String(item?.descricao ?? '');
 
-    // Usa suas classes atuais: .card, .card-img, .price, .btn.btn-add
     const div = document.createElement('div');
     div.className = 'card';
     div.innerHTML = `
@@ -871,10 +862,33 @@ initAppListeners();
       if (grids.bebidas && data?.data?.bebidas) renderList(grids.bebidas, data.data.bebidas);
     } catch (err){
       console.error('Falha ao carregar menu da API:', err);
-      // Em caso de erro, mantemos o conteúdo (se houver) e não quebramos o layout
     }
   }
 
-  // Aguarda DOM pronto (por segurança, já que o script está com defer)
   document.addEventListener('DOMContentLoaded', load);
+})();
+
+// ===== Auto-adicionar PROMO ao entrar no Cardápio com ?promo=1 =====
+(function promoAutoAddOnCardapio(){
+  try {
+    const url = new URL(window.location.href);
+    const flag = url.searchParams.get('promo');
+    if (flag === '1' && typeof window.PROMOCAO_CONFIG !== 'undefined') {
+      const cfg = window.PROMOCAO_CONFIG?.popup;
+      if (cfg && cfg.produto && cfg.precoPromocional) {
+        addToCart(
+          cfg.produto,
+          Number(cfg.precoPromocional),
+          1,
+          { tipo: 'promocao', descricao: cfg.descricao || '' }
+        );
+        if (typeof openCart === 'function') openCart();
+      }
+      // remove ?promo=1 para não duplicar no refresh
+      url.searchParams.delete('promo');
+      history.replaceState({}, '', url.pathname + url.hash);
+    }
+  } catch (err) {
+    console.warn('Auto-add promo falhou:', err);
+  }
 })();

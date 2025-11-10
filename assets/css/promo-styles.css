@@ -1,0 +1,107 @@
+/* ===== Overlay do pop-up ===== */
+#promo-popup-overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0,0,0,.65);
+  z-index: 9999;
+}
+#promo-popup-overlay.show { display: flex; }
+
+/* ===== Card do pop-up ===== */
+.promo-popup-card {
+  position: relative;
+  width: min(92vw, 560px);
+  max-height: 92vh;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: linear-gradient(180deg, rgba(255,255,255,.06) 0%, rgba(255,255,255,.02) 100%);
+  box-shadow: 0 18px 60px rgba(0,0,0,.45);
+  overflow: hidden;
+}
+
+/* ===== Botão X ===== */
+.promo-popup-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.35);
+  background: rgba(0,0,0,.85);
+  color: #fff;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 3; /* acima de tudo */
+}
+
+/* ===== Conteúdo ===== */
+.promo-popup-content {
+  padding: 14px;
+}
+
+.promo-popup-image-wrapper {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(0,0,0,.35);
+  min-height: 200px;
+}
+
+.promo-popup-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #F4A261;
+  color: #000;
+  font-weight: 800;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid #3F6C3A;
+  z-index: 2;
+}
+
+.promo-popup-image {
+  display: block;
+  width: 100%;
+  height: auto;         /* mantém proporção da arte */
+  object-fit: cover;
+}
+
+/* ===== CTA sobre a imagem ===== */
+.promo-popup-footer {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.promo-popup-btn {
+  display: inline-block;
+  padding: 12px 18px;
+  border-radius: 12px;
+  background: #F4A261;
+  color: #000;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 10px 24px rgba(0,0,0,.25);
+  border: 1px solid #3F6C3A;
+  cursor: pointer;
+}
+
+/* ===== Breakpoints ===== */
+@media (min-width: 640px){
+  .promo-popup-card { width: min(92vw, 720px); }
+}
+@media (min-width: 1024px){
+  .promo-popup-card { width: min(86vw, 980px); }
+}
+@media (min-width: 1440px){
+  .promo-popup-card { width: min(70vw, 1100px); }
+}

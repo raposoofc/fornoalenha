@@ -7,7 +7,8 @@
     <meta name="author" content="Rapôso Web Dev - https://portfolioraposoofc.vercel.app/">
     <meta name="description" content="Forno à Lenha Pizzaria - Cardápio Completo.">
     <title>Cardápio | Forno à Lenha</title>
-    <link rel="stylesheet" href="../css/cardapio.css"> 
+    <link rel="stylesheet" href="../css/cardapio.css">
+    <link rel="stylesheet" href="../css/promo-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="../icon/fornoalenha.ico" type="image/x-icon">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -151,7 +152,7 @@
         </div>
       </div>
 
-      <h2 style="margin:18px 0 10px">🐙 Temakis <small style="color:#8b8d94"></small></h2>
+      <h2 style="margin:18px 0 10px">🍙 Temakis <small style="color:#8b8d94"></small></h2>
       <div class="cards">
         <div class="card">
           <img class="card-img" src="../imgs/sushis/tsalmao.webp" alt="Produto" loading="lazy">
@@ -190,28 +191,28 @@
           <h3>Sushidog de Salmão</h3>
           <p>Clássico da casa.</p>
           <span class="price">R$ 38,90</span>
-          <button class="btn btn-add" onclick="addToCart('Sushidog', 38.90, 1)">Adicionar</button>
+          <button class="btn btn-add" onclick="addToCart('Sushidog de Salmão', 38.90, 1)">Adicionar</button>
         </div>
         <div class="card">
           <img class="card-img" src="../imgs/sushis/sushidog.webp" alt="Produto" loading="lazy">
           <h3>Sushidog de Salmão Grelhado</h3>
           <p>Clássico da casa.</p>
           <span class="price">R$ 38,90</span>
-          <button class="btn btn-add" onclick="addToCart('Sushidog', 38.90, 1)">Adicionar</button>
+          <button class="btn btn-add" onclick="addToCart('Sushidog de Salmão Grelhado', 38.90, 1)">Adicionar</button>
         </div>
         <div class="card">
           <img class="card-img" src="../imgs/sushis/sushidog.webp" alt="Produto" loading="lazy">
           <h3>Sushidog de Camarão</h3>
           <p>Clássico da casa.</p>
           <span class="price">R$ 38,90</span>
-          <button class="btn btn-add" onclick="addToCart('Sushidog', 38.90, 1)">Adicionar</button>
+          <button class="btn btn-add" onclick="addToCart('Sushidog de Camarão', 38.90, 1)">Adicionar</button>
         </div>
         <div class="card">
           <img class="card-img" src="../imgs/sushis/sushidog.webp" alt="Produto" loading="lazy">
           <h3>Sushidog de Polvo</h3>
           <p>Clássico da casa.</p>
           <span class="price">R$ 38,90</span>
-          <button class="btn btn-add" onclick="addToCart('Sushidog', 38.90, 1)">Adicionar</button>
+          <button class="btn btn-add" onclick="addToCart('Sushidog de Polvo', 38.90, 1)">Adicionar</button>
         </div>
       </div>
     </section>
@@ -256,7 +257,6 @@
           <span class="price">R$ 3,90</span>
           <button class="btn btn-add" onclick="addToCart('Esfiha de Marguerita', 3.90, 1)">Adicionar</button>
         </div>
-      </div>
       </div>
 
       <h2 style="margin:18px 0 10px">Especiais<small style="color:#8b8d94"></small></h2>
@@ -324,14 +324,14 @@
         <h3>Coca-Cola 350ml</h3>
         <p>Coca-Cola 350ml.</p>
         <span class="price">R$ 6,90</span>
-        <button class="btn btn-add" onclick="addToCart('Coca-Cola 350ml', 7.90, 1)">Adicionar</button>
+        <button class="btn btn-add" onclick="addToCart('Coca-Cola 350ml', 6.90, 1)">Adicionar</button>
       </div>
       <div class="card">
         <img class="card-img" src="../imgs/bebidas/cocaltzr.webp" alt="Produto" loading="lazy">
         <h3>Coca-Cola Zero 350ml</h3>
         <p>Coca-Cola Zero 350ml.</p>
         <span class="price">R$ 6,90</span>
-        <button class="btn btn-add" onclick="addToCart('Coca-Cola Zero 350ml', 7.90, 1)">Adicionar</button>
+        <button class="btn btn-add" onclick="addToCart('Coca-Cola Zero 350ml', 6.90, 1)">Adicionar</button>
       </div>
         <div class="card">
           <img class="card-img" src="../imgs/bebidas/coca1l.webp" alt="Produto" loading="lazy">
@@ -430,7 +430,6 @@
         </select>
       </div>
 
-      <!-- Observações -->
       <div class="section-box" id="observacao-box">
         <h3>📝 Observações</h3>
         <div class="field">
@@ -440,7 +439,6 @@
         </div>
       </div>
       
-      <!-- Campos PIX -->
       <div id="pix-fields" class="hidden">
         <h4 style="margin: 0 0 8px 0; color: var(--acc);">💳 Pagamento via PIX</h4>
         <div class="field">
@@ -471,7 +469,6 @@
     </div>
   </aside>
 
-  <!-- Modal PIX -->
   <div id="pix-alert" class="modal" aria-hidden="true">
     <div class="modal-content small">
       <div class="modal-header">
@@ -540,6 +537,8 @@
   </footer>
 
   <div id="comanda-digital"></div>
+  <script src="../js/promo-config.js"></script>
+  <script src="../js/promo-system.js"></script>
   <script src="../js/script.js"></script>
 </body>
 </html>
