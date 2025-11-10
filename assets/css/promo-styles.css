@@ -69,9 +69,10 @@
 }
 
 .promo-popup-image {
-  display: block;
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: auto;         /* mantém proporção da arte */
+  height: 100%;
   object-fit: cover;
 }
 
@@ -102,6 +103,16 @@
   .promo-popup-card { width: min(92vw, 720px); }
 }
 @media (min-width: 1024px){
+  .promo-popup-image-wrapper {
+    min-height: 360px;
+    padding-bottom: 96px;
+  }
+  .promo-popup-btn {
+    z-index: 2;
+  }
+  .promo-popup-close{
+    z-index: 3;
+  }
   .promo-popup-card { width: min(86vw, 980px); }
 }
 @media (min-width: 1440px){
