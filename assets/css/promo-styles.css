@@ -50,7 +50,9 @@
   border-radius: 16px;
   overflow: hidden;
   background: rgba(0,0,0,.35);
-  min-height: 200px;
+  min-height: 260px;
+  padding-bottom: 80px;
+  box-sizing: border-box;
 }
 
 .promo-popup-badge {
