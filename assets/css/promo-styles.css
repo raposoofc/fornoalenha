@@ -1,4 +1,4 @@
-/* ===== Overlay do pop-up ===== */
+/* ===== Overlay do pop-up (SEM ALTERAÇÕES) ===== */
 #promo-popup-overlay {
   position: fixed;
   inset: 0;
@@ -11,11 +11,11 @@
 }
 #promo-popup-overlay.show { display: flex; }
 
-/* ===== Card do pop-up ===== */
+/* ===== Card do pop-up (SEM ALTERAÇÕES) ===== */
 .promo-popup-card {
   position: relative;
   width: min(92vw, 560px);
-  max-height: 92vh;
+  max-height: 100%;
   border-radius: 18px;
   border: 1px solid rgba(255,255,255,.18);
   background: linear-gradient(180deg, rgba(255,255,255,.06) 0%, rgba(255,255,255,.02) 100%);
@@ -23,7 +23,7 @@
   overflow: hidden;
 }
 
-/* ===== Botão X ===== */
+/* ===== Botão X (SEM ALTERAÇÕES) ===== */
 .promo-popup-close {
   position: absolute;
   top: 10px;
@@ -40,9 +40,9 @@
   z-index: 3; /* acima de tudo */
 }
 
-/* ===== Conteúdo ===== */
+/* ===== Conteúdo (MANTIDO RESPIRO) ===== */
 .promo-popup-content {
-  padding: 14px;
+  padding: 14px; /* Respiro de 14px ao redor do conteúdo */
 }
 
 .promo-popup-image-wrapper {
@@ -50,8 +50,10 @@
   border-radius: 16px;
   overflow: hidden;
   background: rgba(0,0,0,.35);
-  min-height: 260px;
-  padding-bottom: 80px;
+  /* REAJUSTE: Remove min-height fixo para permitir o ajuste vertical, */
+  /* mas garante uma proporção inicial usando padding-bottom para a imagem que é quase quadrada (1:1.04). */
+  min-height: 0;
+  padding-bottom: 104%; /* 781/750 ≈ 1.04. Isso força a altura a ser proporcional à largura. */
   box-sizing: border-box;
 }
 
@@ -73,10 +75,11 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  /* AJUSTE CRUCIAL: Mudar de 'cover' para 'contain' */
+  object-fit: contain; /* Garante que a imagem inteira caiba, sem cortes */
 }
 
-/* ===== CTA sobre a imagem ===== */
+/* ===== CTA sobre a imagem (MANTIDO) ===== */
 .promo-popup-footer {
   position: absolute;
   left: 50%;
@@ -98,14 +101,24 @@
   cursor: pointer;
 }
 
-/* ===== Breakpoints ===== */
+/* ===== Breakpoints (Ajuste o padding em telas maiores) ===== */
 @media (min-width: 640px){
   .promo-popup-card { width: min(92vw, 720px); }
+  .promo-popup-content {
+    padding: 24px; /* Mais respiro em telas maiores */
+  }
+  .promo-popup-image-wrapper {
+    padding-bottom: 104%; /* Mantém a proporção da imagem */
+  }
 }
 @media (min-width: 1024px){
+  .promo-popup-content {
+    padding: 24px; /* Mantém o respiro grande */
+  }
   .promo-popup-image-wrapper {
-    min-height: 360px;
-    padding-bottom: 96px;
+    /* Em telas maiores, podemos definir uma altura máxima para limitar o tamanho */
+    max-height: 60vh;
+    padding-bottom: 0; /* Remove padding-bottom (proporção) quando max-height está ativo */
   }
   .promo-popup-btn {
     z-index: 2;

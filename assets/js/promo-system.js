@@ -164,7 +164,7 @@
           src="${item.imagem}" 
           alt="${item.nome || 'Promoção'}"
           class="promo-card-image"
-          onerror="this.src='../imgs/pizzas/calabresa.webp'"
+          onerror="this.src='../imgs/promocao/promosushi.jpeg'"
         />
       <div class="promo-card-body">
         <h3 class="promo-card-title">${item.nome || ''}</h3>

@@ -6,13 +6,13 @@
 const PROMOCAO_CONFIG = {
   // ===== POP-UP DA TELA INICIAL =====
   popup: {
-    ativo: false, // true = mostrar popup | false = ocultar popup
-    imagem: "./assets/imgs/card-garage.jpeg", // Caminho da imagem do popup
-    produto: "Pizza Grande Especial", // Nome do produto em promoção
-    precoOriginal: 59.90, // Preço original (será mostrado riscado)
-    precoPromocional: 45.90, // Preço da promoção
-    descricao: "Pizza Grande de qualquer sabor especial!", // Descrição da promoção
-    badge: "50% OFF", // Texto do badge (ex: "50% OFF", "PROMOÇÃO", etc)
+    ativo: true, // true = mostrar popup | false = ocultar popup
+    imagem: "./assets/imgs/promocao/promosushi.jpeg", // Caminho da imagem do popup
+    produto: "Sushidog Salmão Grelhado", // Nome do produto em promoção
+    precoOriginal: 38.90, // Preço original (será mostrado riscado)
+    precoPromocional: 31.90, // Preço da promoção
+    descricao: "Salmão grelhado com molho especial, clássico da casa!", // Descrição da promoção
+    badge: "PROMOÇÃO", // Texto do badge (ex: "50% OFF", "PROMOÇÃO", etc)
   },
 
   // ===== SEÇÃO NO CARDÁPIO =====
@@ -21,20 +21,20 @@ const PROMOCAO_CONFIG = {
     titulo: "🔥 Promoções da Semana",
     itens: [
       {
-        nome: "Combo Família",
-        imagem: "./assets/imgs/promo.jpg",
-        descricao: "2 Pizzas Grandes + 2 Refrigerantes 2L",
+        nome: "Temaki Salmão Grelhado",
+        imagem: "./assets/imgs/promocao/promotemaki.jpeg",
+        descricao: "Temaki de salmão grelhado com molho especial.",
         precoOriginal: 120.00,
         precoPromocional: 89.90,
         badge: "COMBO"
       },
       {
-        nome: "Pizza do Dia",
-        imagem: "./assets/imgs/promo.jpg",
-        descricao: "Pizza Média Especial com Borda Grátis",
-        precoOriginal: 62.80,
-        precoPromocional: 49.90,
-        badge: "BORDA GRÁTIS"
+        nome: "Sushidog Salmão Grelhado",
+        imagem: "./assets/imgs/promocao/promosushi.jpeg",
+        descricao: "Salmão grelhado com molho especial, clássico da casa!",
+        precoOriginal: 38.90,
+        precoPromocional: 31.90,
+        badge: "PROMOÇÃO"
       }
       // Adicione mais promoções aqui se desejar
     ]
